@@ -1,7 +1,7 @@
 /**
  * 
  */
-package au.com.csl.vams.model.relational;
+package au.com.csl.vams.utils;
 
 import java.io.Serializable;
 import java.util.List;

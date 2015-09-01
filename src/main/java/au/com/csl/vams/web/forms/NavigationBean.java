@@ -3,7 +3,7 @@ package au.com.csl.vams.web.forms;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
-import au.com.csl.vams.model.relational.PageDetails;
+import au.com.csl.vams.utils.PageDetails;
 
 /**
  * This bean is used to drive the application main menu system.

@@ -1,13 +1,15 @@
 /**
  * 
  */
-package au.com.csl.vams.model.relational;
+package au.com.csl.vams.utils;
 
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import au.com.csl.vams.model.relational.AppUser;
 
 /**
  * @author sanketsw

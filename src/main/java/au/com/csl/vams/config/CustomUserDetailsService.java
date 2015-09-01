@@ -19,8 +19,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import au.com.csl.vams.model.relational.AppUser;
-import au.com.csl.vams.model.relational.UserRepositoryUserDetails;
 import au.com.csl.vams.service.IUserSvc;
+import au.com.csl.vams.utils.UserRepositoryUserDetails;
 
 /**
  * @author sanketsw

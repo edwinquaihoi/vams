@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import au.com.csl.vams.config.ConfigUtil;
-import au.com.csl.vams.model.relational.PageDetails;
+import au.com.csl.vams.utils.PageDetails;
 import au.com.csl.vams.web.forms.Mode;
 import au.com.csl.vams.web.forms.SessionModel;
 

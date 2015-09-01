@@ -12,9 +12,9 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import au.com.csl.vams.config.ConfigUtil;
-import au.com.csl.vams.model.relational.PageDetails;
 import au.com.csl.vams.scaffold.AbstractMaintenanceForm;
 import au.com.csl.vams.scaffold.IMasterPersistentEntity;
+import au.com.csl.vams.utils.PageDetails;
 
 @SuppressWarnings("rawtypes")
 @ManagedBean
