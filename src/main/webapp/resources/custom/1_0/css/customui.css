@@ -1,0 +1,96 @@
+/*Style For UI Accordion --------------------------------------------------------------------------------------*/
+
+
+
+.ui-accordion{border:solid 1px #E0E0E0 !important; border-radius:2px; -webkit-border-radius:2px; -moz-border-radius:2px; background-color:#ffffff; padding:0px !important; width: auto !important;
+        font-family: 'roboto_condensedregular';}
+.ui-accordion:hover{}
+    .ui-accordion-header{border-radius:0px; -webkit-border-radius:0px; -moz-border-radius:0px; font-size:16px !important; color:#546E7A; background-color:#ECEFF1;
+                         padding:13px 5px 13px 30px !important; margin-bottom:1px !important; font-weight:normal !important; font-family:'roboto_condensedlight';}
+    .ui-accordion .ui-state-hover, .ui-accordion .ui-state-active{background-color:#546E7A; color:#ffffff;}
+        .ui-accordion-header .ui-icon-triangle-1-s{background-image:url("#{resource['primefaces-rio:images/downarrow.svg']}"); background-position: center !important; 
+                         background-repeat: no-repeat; background-size: 110%;}
+        .ui-accordion-header .ui-icon-triangle-1-e{background-image:url("#{resource['primefaces-rio:images/right-arrow.svg']}"); background-position: center !important; 
+                         background-repeat: no-repeat; background-size: 100%;}
+    .ui-accordion-content{padding:5px!important; font-size:16px !important; color:#546E7A;}
+    
+    
+.myText {
+	font-size: 18px!important;
+}
+
+.ui-dialog {
+	overflow-y: auto!important;
+	max-height: 100%;
+	top: .2em !important;
+	max-width: 1200px;
+	min-width: 300px;
+}
+
+img { 
+	vertical-align : middle;
+	zoom: 1;
+	max-width: 100%;
+	max-height: 100%;
+	width: auto;
+	transform: scale(1, 1);
+	-ms-transform: scale(1, 1);
+	-webkit-transform: scale(1, 1);
+}
+
+.ui-picklist .ui-picklist-list{
+width: 100%!important;
+min-width:100px;
+}
+
+.ui-datatable .ui-datatable-header {
+	background-color: #DAE8EF;
+}
+
+.preformatted {
+    white-space: pre-wrap;
+}
+
+/* SoftGray #ECEFF1 Background and BoldGray #546E7A for Panel Header */
+/* Blue text is #0288D1 */
+.ui-panel .ui-panel-titlebar {
+    padding: 1px 5px !important;
+    background-color: #ECEFF1; 
+	color: #0288D1;
+}
+.ui-datascroller {
+    border: 0px;
+    background-color: white;
+}
+.ui-datascroller .ui-datascroller-content {
+    padding: 4px 0px!important;
+}
+
+.ui-panelgrid tbody tr td {
+    border: 0px !important;
+background: none !important;
+}
+
+#loginbodyblue{background-image:url("#{resource['rio-layout:images/blue-background.svg']}"); background-size:cover; background-attachment:fixed; background-position:center; background-color:#0288D1;
+          background-repeat:no-repeat; height:auto; border-top: solid 10px #0288D1;}
+
+
+/*Style For UI Growl Item ------------------------------------------------------------------------------------- */
+
+.ui-growl{width: 200px !important; right:12px !important; top:70px !important;}
+	.ui-growl-item-container{opacity: 0.9 !important; filter: alpha(opacity=90) !important;}
+        .ui-growl-item{padding: 20px 20px !important; background-color:#ffffff; border-radius:2px; -webkit-border-radius:2px; -moz-border-radius:2px;}
+	.ui-growl-message{width:100px !important; font-size:16px !important; line-height:16px !important; color:#546E7A !important; font-family: 'roboto_condensedregular';}
+        .ui-growl-message .ui-growl-title{color:#546E7A;}
+	.ui-growl-image{width: 21px !important; height: 23px !important;}
+	.ui-growl-image-error, .ui-growl-image-warn{background-image:url("#{resource['primefaces-rio:images/warn-pink.svg']}") !important; background-position:center !important; 
+                             background-size: 140% !important; margin-top:5px;}
+        .ui-growl-image-info{background-image:url("#{resource['primefaces-rio:images/info-blue.svg']}") !important; background-position:center !important; 
+                             background-size: 140% !important; margin-top:5px;}
+	.ui-growl-icon-close{width:10px !important; height:10px !important; background-image:url("#{resource['primefaces-rio:images/delete-pink.svg']}") !important; 
+                            background-position:center !important; background-size:130% !important;}
+
+
+
+
+    
