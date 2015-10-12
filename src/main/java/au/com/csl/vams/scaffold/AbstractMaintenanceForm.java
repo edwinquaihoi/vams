@@ -49,6 +49,22 @@ public abstract class AbstractMaintenanceForm<K, T extends IMasterPersistentEnti
 
 	@SuppressWarnings("unchecked")
 	public String save() {
+		try {
+			executeBeforeSave();
+			T entity = (T) getService().update(getSessionModel().getModel());
+			getSessionModel().setModel(entity);
+			getSessionModel().setMode(Mode.EDIT);
+			ConfigUtil.growl("Info", "Changes saved");
+			executeAfterSave();
+		} catch (Exception e) {
+			e.printStackTrace();
+			ConfigUtil.growl("Error", "Could not save the changes");
+		}
+		return null;
+	}
+	
+	/*
+	public String save() {
 
 		executeBeforeSave();
 
@@ -61,21 +77,17 @@ public abstract class AbstractMaintenanceForm<K, T extends IMasterPersistentEnti
 			getSessionModel().setModel(en);
 			getSessionModel().setMode(Mode.EDIT);
 			ConfigUtil.growl("Info", "Changes saved");
-			executeAfterSave();
+			//executeAfterSave();
 		} catch (Exception e) {
 			e.printStackTrace();
 			ConfigUtil.growl("Error", "Could not save the changes");
 		}
 		return null;
 	}
-
-	/**
-	 * Method for implementation classes to do some operations before saving to database
-	 */
-	public void executeBeforeSave() {
-	}
+	*/
 
 	@SuppressWarnings("unchecked")
+	/*
 	public String saveNew() {
 		//By default New entity cannot overwrite existing blindly but it will start editing the existing entity
 		if (!canNewEntityOverwriteExisting()) {
@@ -93,17 +105,27 @@ public abstract class AbstractMaintenanceForm<K, T extends IMasterPersistentEnti
 		try {
 			T newEn = (T) getService().update(getSessionModel().getModel());
 			getSessionModel().setModel(newEn);
+			getSessionModel().setMode(Mode.EDIT);
 			ConfigUtil.growl("Info", "Details saved.");
-			executeAfterSave();
+			//executeAfterSave();
 		} catch (Exception e) {
 			e.printStackTrace();
 			ConfigUtil.growl("Error", "Could not save details");
 		}
 		return null;
 	}
+	*/
+
+
+	/**
+	 * Method for implementation classes to do some operations before saving to database
+	 */
+	public void executeBeforeSave() {
+		
+	}
 
 	public void executeAfterSave() {
-		goBack();
+		//goBack();
 	}
 
 	/**
@@ -176,13 +198,13 @@ public abstract class AbstractMaintenanceForm<K, T extends IMasterPersistentEnti
 
 		String compactBusinessName = getEntityBusinessName().toLowerCase().replace(" ", "");
 
-		return "ui/" + compactBusinessName + "/" + compactBusinessName + ".xhtml";
+		return "/ui/" + compactBusinessName + "/" + compactBusinessName + ".xhtml";
 	}
 
 	public String getViewForList() {
 		String compactBusinessName = getEntityBusinessName().toLowerCase().replace(" ", "");
 
-		return "ui/" + compactBusinessName + "/" + compactBusinessName + "List.xhtml";
+		return "/ui/" + compactBusinessName + "/" + compactBusinessName + "List.xhtml";
 	}
 
 	public String getViewListTitle() {

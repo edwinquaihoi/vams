@@ -13,6 +13,5 @@ public class CdiConfig {
     @Produces  
     @Dependent  
     @PersistenceContext(unitName="vams-db")  
-    private EntityManager entityManager;
-    
+    private EntityManager entityManager;    
 }

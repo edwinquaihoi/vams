@@ -41,23 +41,13 @@ public class AppUserForm extends AbstractMaintenanceForm<String, AppUser> {
 	}
 
 	@Override
-	public String getViewForOne() {
-		return "ui/appUser/appUser.xhtml";
-	}
-
-	@Override
-	public String getViewForList() {
-		return "ui/appUser/appUserList.xhtml";
-	}
-
-	@Override
 	public List<AppUser> getDefaultSearchResults() {
 		return userSvc.getAll();
 	}
 
 	@Override
 	public String getEntityBusinessName() {
-		return "User";
+		return "App User";
 	}
 
 	public String getPassword() {

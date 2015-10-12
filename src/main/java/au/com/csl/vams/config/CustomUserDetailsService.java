@@ -3,16 +3,10 @@
  */
 package au.com.csl.vams.config;
 
-import java.util.Collection;
-
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.persistence.NoResultException;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

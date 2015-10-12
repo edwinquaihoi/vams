@@ -25,27 +25,12 @@ public class NavigationBean {
 		getSessionModel().addPage(new PageDetails("dashboard.xhtml", null, null));
 		getSessionModel().setContent("dashboard.xhtml");
 	}
-	
-	public void setup() {
-		getSessionModel().addPage(new PageDetails("ui/setup.xhtml", null, null));
-		getSessionModel().setContent("ui/setup.xhtml");
-	}
-		
-	public void manageAssets() {
-		getSessionModel().addPage(new PageDetails("ui/asset/manageAssets.xhtml", null, null));
-		getSessionModel().setContent("ui/asset/manageAssets.xhtml");
-	}
-	
+				
 	public void home() {
 		getSessionModel().addPage(new PageDetails("home.xhtml", null, null));
 		getSessionModel().setContent("home.xhtml");	
 	}
-	
-	public void prodserv() {
-		getSessionModel().addPage(new PageDetails("products-and-services.xhtml", null, null));
-		getSessionModel().setContent("products-and-services.xhtml");
-	}
-	
+		
 	public void login() {
 		getSessionModel().setContent("login.xhtml");
 	}

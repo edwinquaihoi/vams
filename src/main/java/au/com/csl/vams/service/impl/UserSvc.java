@@ -2,7 +2,6 @@ package au.com.csl.vams.service.impl;
 
 import java.util.List;
 
-import javax.ejb.Local;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -25,11 +24,9 @@ public class UserSvc implements IUserSvc {
 	@Inject
 	@Dao
 	private IUserDao dao;
-	
 
 	public IUserDao getDao() {
 		return dao;
-		//return null;
 	}
 
 	public void setDao(IUserDao dao) {

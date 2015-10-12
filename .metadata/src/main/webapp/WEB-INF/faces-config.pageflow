@@ -1,10 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14329978239040" configfile="/vams/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="mobile/create.serviceline.mobile.xhtml" x="122" y="178" id="pf14353657492750" referenceLink="//@navigationRule.1/@fromViewId|" path="/mobile/create.serviceline.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="desktop/create.serviceline.xhtml" x="122" y="946" id="pf14353677412174" referenceLink="//@navigationRule.1/@fromViewId|" path="/desktop/create.serviceline.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="desktop/servicelines.xhtml" x="122" y="1330" id="pf14353677412177" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" path="/mobile/servicelines.mobile.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="122" y="1714" id="pf14353852106489" referenceLink="//@navigationRule.1/@fromViewId|" path="/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="mobile/l.serviceline.mobile.xhtml" x="122" y="2098" id="pf143541904134910" referenceLink="//@navigationRule.1/@fromViewId|" path="/mobile/list.servicelines.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="mobile/view.serviceline.xhtml" x="122" y="2482" id="pf143541904134912" referenceLink="//@navigationRule.2/@navigationCase.1/@toViewId|" path="/mobile/view.serviceline.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="mobile/list.opportunities.xhtml" x="122" y="3250" id="pf14360768317353" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" path="/ui/opportunities.xhtml"/>
-</pageflow:Pageflow>
+<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14427461217250" configfile="/vams/src/main/webapp/WEB-INF/faces-config.xml"/>

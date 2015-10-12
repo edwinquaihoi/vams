@@ -15,14 +15,16 @@
 		
 		<non-jta-data-source>test-vams-db</non-jta-data-source>
 		
-		<class>au.com.csl.vams.model.relational.AppUser</class>
-		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		
 		<properties>
-<!-- 			<property name="eclipselink.logging.parameters" value="true" /> -->
-<!-- 			<property name="eclipselink.logging.level" value="FINE" /> -->
-<!-- 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" /> -->
-<!-- 			<property name="eclipselink.ddl-generation.ouput-mode" value="database" /> -->
+			 
+			<!--
+			<property name="eclipselink.logging.parameters" value="true" />
+			<property name="eclipselink.logging.level" value="FINE" />
+			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+			<property name="eclipselink.ddl-generation.ouput-mode" value="database" />
+			-->
 			<property name="javax.persistence.schema-generation.create-database-schemas" value="true"/>
 			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 			<property name="eclipselink.weaving" value="false"/>

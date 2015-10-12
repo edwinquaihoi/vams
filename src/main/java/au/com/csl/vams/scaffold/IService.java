@@ -10,11 +10,26 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Local
 public interface IService<A extends IMasterPersistentEntity<B>,B extends Serializable, C extends JpaRepository<A, B>, D extends IDao<A,B,C>> {
 	
-	A getById(B pId);
-	A create(A pEntity);
-	A update(A pEntity);
-	void delete(A pEntity);	
-	List<A> getAll();
+	default A getById(B pId) {
+		return getDao().findOne(pId);
+	}
 	
+	default A create(A pEntity) {
+		return getDao().save(pEntity);
+	}
+	
+	default A update(A pEntity) {
+		return getDao().save(pEntity);
+	}
+	
+	default void delete(A pEntity) {
+		getDao().delete(pEntity);
+	}
+	
+	default List<A> getAll() {
+		return getDao().findAll();
+	}
+	
+	// cannot be defaulted as it requires access to a instance variable 
 	D getDao();
 }

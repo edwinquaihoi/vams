@@ -24,7 +24,7 @@
 		<!-- 
 		<non-jta-data-source>vams-db</non-jta-data-source>
 		-->
-		<class>au.com.csl.vams.model.relational.AppUser</class>
+		<!-- <class>au.com.ibm.vams.model.relational.AppUser</class> -->
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		
 		<properties>
