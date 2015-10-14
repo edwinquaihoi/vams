@@ -3,7 +3,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-
+	<h:form id="form">
 	<div class="Container100">
 
 		<div class="TexAlLeft">
@@ -17,11 +17,12 @@
 				<div class="Container50 TexAlCenter">
 					<p:outputPanel styleClass="studybutton">
 						<p:commandButton value="Save" action="#{studyForm.save()}"
-							ajax="true" update="form:mainContent, backButtonPanel, growl"
+							ajax="true" update="form"
 							rendered="#{studyForm.sessionModel.newMode}" />
 					</p:outputPanel>
 				</div>
 			</h:panelGrid>
 		</div>
 	</div>
+	</h:form>
 </ui:composition>
