@@ -41,11 +41,13 @@
 			<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:multiverse-db"/>
 			<property name="javax.persistence.jdbc.user" value="sa"/>
 			-->
+			<!-- 
 		    <property name="openjpa.LockTimeout" value="30000" />
 		    <property name="openjpa.jdbc.TransactionIsolation" value="read-committed" />
 			<property name="openjpa.Log" value="SQL=TRACE,openjpa.jdbc.Schema=TRACE"/>
 		    <property name="openjpa.jdbc.UpdateManager" value="operation-order" />
 			<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
+			-->
 			
 		</properties>
 	</persistence-unit>
