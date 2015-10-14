@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="Container100">
+
+		<div class="TexAlLeft">
+			<h:panelGrid columns="2">
+					<p:outputLabel value="Study Name" />
+					<p:outputPanel>
+						<p:inputText style="width:56%;margin-right:5px;"
+							value="#{runForm.sessionModel.model.study.studyName}">
+						</p:inputText>
+					</p:outputPanel>
+					<p:outputLabel value="Study Number" />
+					<p:outputPanel>
+						<p:inputText style="width:56%;margin-right:5px;"
+							value="#{runForm.sessionModel.model.study.id}">
+						</p:inputText>
+					</p:outputPanel>
+					<p:outputLabel value="Run Number" />
+					<p:outputPanel>
+						<p:inputText style="width:56%;margin-right:5px;"
+							value="#{runForm.sessionModel.model.id}">
+						</p:inputText>
+					</p:outputPanel>
+					<p:outputLabel/>
+					<div class="Container50 TexAlCenter">
+						<p:outputPanel styleClass="runbutton">
+							<p:commandButton  value="Continue"
+								action="#{runForm.addPlate}" ajax="true"
+								update="form:mainContent, backButtonPanel, growl" />
+
+						</p:outputPanel>
+					</div>
+				</h:panelGrid>
+		</div>
+	</div>
+</ui:composition>
