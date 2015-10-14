@@ -21,9 +21,24 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import au.com.csl.vams.dao.Dao;
+import au.com.csl.vams.dao.IPlateDao;
+import au.com.csl.vams.dao.IRunDao;
+import au.com.csl.vams.dao.ISampleDao;
+import au.com.csl.vams.dao.IStudyDao;
+import au.com.csl.vams.dao.IStudyTypeDao;
 import au.com.csl.vams.dao.IUserDao;
+import au.com.csl.vams.dao.relational.PlateDao;
+import au.com.csl.vams.dao.relational.RunDao;
+import au.com.csl.vams.dao.relational.SampleDao;
+import au.com.csl.vams.dao.relational.StudyDao;
+import au.com.csl.vams.dao.relational.StudyTypeDao;
 import au.com.csl.vams.dao.relational.UserDao;
+import au.com.csl.vams.dao.relational.repository.PlateRepository;
 import au.com.csl.vams.dao.relational.repository.Repo;
+import au.com.csl.vams.dao.relational.repository.RunRepository;
+import au.com.csl.vams.dao.relational.repository.SampleRepository;
+import au.com.csl.vams.dao.relational.repository.StudyRepository;
+import au.com.csl.vams.dao.relational.repository.StudyTypeRepository;
 import au.com.csl.vams.dao.relational.repository.UserRepository;
 
 @Configuration
@@ -88,5 +103,45 @@ public class ModelJPAConfig {
 		
 	@Bean @Repo public UserRepository userRepository(JpaRepositoryFactory jpaRepositoryFactory) {
 		return jpaRepositoryFactory.getRepository(UserRepository.class);
+	}
+	
+	@Bean @Dao public ISampleDao sampleDao() {
+		return new SampleDao();
+	}
+		
+	@Bean @Repo public SampleRepository sampleRepository(JpaRepositoryFactory jpaRepositoryFactory) {
+		return jpaRepositoryFactory.getRepository(SampleRepository.class);
+	}
+	
+	@Bean @Dao public IStudyTypeDao studyTypeDao() {
+		return new StudyTypeDao();
+	}
+		
+	@Bean @Repo public StudyTypeRepository studyTypeRepository(JpaRepositoryFactory jpaRepositoryFactory) {
+		return jpaRepositoryFactory.getRepository(StudyTypeRepository.class);
+	}
+
+	@Bean @Dao public IStudyDao studyDao(){
+		return new StudyDao();	
+	}
+	
+	@Bean @Repo public StudyRepository studyRepository(JpaRepositoryFactory jpaRepositoryFactory){
+		return jpaRepositoryFactory.getRepository(StudyRepository.class);
+	}
+	
+	@Bean @Dao public IPlateDao plateDao(){
+		return new PlateDao();
+	}
+	
+	@Bean @Repo public PlateRepository plateRepository(JpaRepositoryFactory jpaRepositoryFactory){
+		return jpaRepositoryFactory.getRepository(PlateRepository.class);
+	}
+	
+	@Bean @Dao public IRunDao runDao(){
+		return new RunDao();
+	}
+	
+	@Bean @Repo public RunRepository runRepository(JpaRepositoryFactory jpaRepositoryFactory){
+		return jpaRepositoryFactory.getRepository(RunRepository.class);
 	}
 }

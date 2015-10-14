@@ -359,18 +359,22 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.wildfly</groupId>
-			<artifactId>wildfly-arquillian-container-managed</artifactId>
-			<version>8.2.1.Final</version>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>arquillian-core-api</artifactId>
-					<groupId>org.jboss.arquillian.core</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+	<dependency>
+		<groupId>org.wildfly</groupId>
+		<artifactId>wildfly-arquillian-container-managed</artifactId>
+		<version>8.2.1.Final</version>
+		<scope>test</scope>
+		<exclusions>
+			<exclusion>
+				<artifactId>arquillian-core-api</artifactId>
+				<groupId>org.jboss.arquillian.core</groupId>
+			</exclusion>
+			<exclusion>
+				<groupId>sun.jdk</groupId>
+				<artifactId>jconsole</artifactId>
+			</exclusion>
+		</exclusions>
+		</dependency> 
 
 		<!-- <dependency> <groupId>org.wildfly</groupId> <artifactId>wildfly</artifactId> 
 			<version>8.2.1.Final</version> <scope>test</scope> </dependency> -->
