@@ -29,37 +29,7 @@ public class StudySvc implements IStudySvc{
 	}
 	
 	@Override
-	public Study getById(String pId) {
-		return getDao().findOne(pId);
-	}
-	
-	@Override
-	public Study create(Study pEntity) {
-		return getDao().saveAndFlush(pEntity);
-	}
-	
-	@Override
-	public Study update(Study pEntity) {
-		return getDao().saveAndFlush(pEntity);
-	}
-
-	@Override
-	public void delete(Study pEntity) {
-		getDao().delete(pEntity);
-	}
-	
-	@Override
-	public List<Study> getAll() {
-		return getDao().findAll();
-	}
-
-	@Override
 	public List<Study> findByStudyNameContainingOrIdContaining(String studyName, String studyId) {
 		return getDao().findByStudyNameContainingOrIdContaining(studyName, studyId);
-	}
-
-	
-	
-	
-	
+	}	
 }
