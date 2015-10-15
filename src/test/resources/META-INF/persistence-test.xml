@@ -15,7 +15,17 @@
 		
 		<non-jta-data-source>test-vams-db</non-jta-data-source>
 		
-		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<class>au.com.csl.vams.model.relational.AppUser</class>
+		<class>au.com.csl.vams.model.relational.Sample</class>
+		<class>au.com.csl.vams.model.relational.StudyType</class>
+		<class>au.com.csl.vams.model.relational.Algorithm</class>
+		<class>au.com.csl.vams.model.relational.PlateType</class>
+		<class>au.com.csl.vams.model.relational.Plate</class>
+		<class>au.com.csl.vams.model.relational.PlateElement</class>
+		<class>au.com.csl.vams.model.relational.PlateVersion</class>
+		<class>au.com.csl.vams.model.relational.Study</class>
+		<class>au.com.csl.vams.model.relational.Run</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		
 		<properties>
 			 
@@ -28,6 +38,7 @@
 			<property name="javax.persistence.schema-generation.create-database-schemas" value="true"/>
 			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 			<property name="eclipselink.weaving" value="false"/>
+			<property name="eclipselink.logging.level" value="FINE" />
 			<!-- 
 			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:multiverse-db"/>
