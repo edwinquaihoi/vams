@@ -13,7 +13,13 @@
         <pr:menu>
         	<p:menuitem id="rm_dashboard" value="Dashboard" icon="fa fa-dashboard" ajax="true" action="#{navigationBean.dashboard}" update="mainContent,form"/>
         	<p:menuitem id="rm_appuser" value="Application User" icon="fa fa-user" action="#{appUserForm.viewNewOne}" ajax="true"  update="mainContent,form"/>
-        	<p:menuitem id="rm_study" value="Study" icon="fa fa-user" action="#{studyForm.viewNewOne}" ajax="true"  update="mainContent,form"/>
+        	<p:menuitem id="rm_algrthm" value="Algorithm"  action="#{algForm.viewNewOne}" ajax="true"  update="mainContent,form"/>
+        	<p:menuitem id="rm_platetype" value="Plate Type"  action="#{plateTypForm.viewNewOne}" ajax="true"  update="mainContent,form"/>
+        	<p:menuitem id="rm_studytype" value="Study Type"  action="#{studyTypeForm.viewNewOne}" ajax="true"  update="mainContent,form"/>
+        	<p:menuitem id="rm_study" value="Study"  action="#{studyForm.viewNewOne}" ajax="true"  update="mainContent,form"/>
+        	<p:menuitem id="rm_studies" value="Studies"  action="#{studyForm.viewList}" ajax="true"  update="mainContent,form"/>
+        	
+        	
         	<!-- 
             <p:menuitem id="rm_dashboard" value="Dashboard" icon="fa fa-joomla"/>
             <p:submenu id="rm_theme" label="Ronin Theme" icon="fa fa-trophy">

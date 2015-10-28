@@ -3,39 +3,73 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-
+	<h:form id="form">
 	<div class="Container100">
 
 		<div class="TexAlLeft">
+		<h2 class="BigTopic" style="padding-bottom: 0px">
+			Run
+		</h2>
+		
 			<h:panelGrid columns="2">
-					<p:outputLabel value="Study Name" />
+					<p:outputLabel value="Study Name *" />
 					<p:outputPanel>
-						<p:inputText style="width:56%;margin-right:5px;"
-							value="#{runForm.sessionModel.model.study.studyName}">
+						<p:inputText style="width:56%;margin-right:5px;" required="true"
+							value="#{runForm.sessionModel.model.study.name}">
 						</p:inputText>
 					</p:outputPanel>
-					<p:outputLabel value="Study Number" />
+					<p:outputLabel value="Study Id" />
 					<p:outputPanel>
 						<p:inputText style="width:56%;margin-right:5px;"
 							value="#{runForm.sessionModel.model.study.id}">
 						</p:inputText>
 					</p:outputPanel>
-					<p:outputLabel value="Run Number" />
+					<p:outputLabel value="Run Id" />
 					<p:outputPanel>
 						<p:inputText style="width:56%;margin-right:5px;"
 							value="#{runForm.sessionModel.model.id}">
 						</p:inputText>
 					</p:outputPanel>
-					<p:outputLabel/>
 					<div class="Container50 TexAlCenter">
-						<p:outputPanel styleClass="runbutton">
-							<p:commandButton  value="Continue"
-								action="#{runForm.addPlate}" ajax="true"
-								update="form:mainContent, backButtonPanel, growl" />
-
+						<p:outputPanel styleClass="savebutton">
+							<p:commandButton  value="Save"
+								action="#{runForm.save()}" ajax="true"
+								update="form, growl" />
+							<p:commandButton id="btnPlate" value="Add Plate" action="#{plateForm.viewNewOne}"
+								ajax="true" update="form,growl"  disabled="#{!runForm.isDisable()}" >
+								<f:setPropertyActionListener target="#{plateForm.run}" value="#{runForm.sessionModel.model}" />
+							</p:commandButton>
 						</p:outputPanel>
 					</div>
 				</h:panelGrid>
+				
+				<h2 class="BigTopic" style="padding-bottom: 0px">
+					Plates
+				</h2>
+				<div class="Container100 Responsive100"
+					style="background: transparent">
+					<p:dataTable id="platedata" var="plate"
+						value="#{runForm.sessionModel.model.plates}" rows="10"
+						paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15" reflow="true"
+						styleClass="graypanel Fs20">
+						<p:column headerText="Id">
+							<h:outputText value="#{plate.id}" />
+						</p:column>
+						<p:column headerText="Name">
+							<h:outputText value="#{plate.name}" />
+						</p:column>
+						<p:column>
+							<p:commandLink id="viewPlate" update="form,growl"
+								actionListener="#{plateForm.viewOne(plate)}">
+								<h:outputText value="Edit" />
+							</p:commandLink>
+						</p:column>
+
+					</p:dataTable>
+				</div>
 		</div>
 	</div>
+	</h:form>
 </ui:composition>

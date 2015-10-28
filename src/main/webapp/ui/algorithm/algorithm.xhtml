@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="form">
+	<div class="Container100">
+
+		<div class="TexAlLeft">
+		<h2 class="BigTopic" style="padding-bottom: 0px">Algorithm</h2>
+				<h:panelGrid columns="2" cellpadding="5" id="algPanel">
+					<p:outputLabel value="Name *" />
+					<p:outputPanel>
+						<p:inputText id="algName" required="true" 
+							value="#{algForm.sessionModel.model.name}">
+						</p:inputText>
+					</p:outputPanel>
+					<div class="Container50 TexAlCenter">
+						<p:outputPanel styleClass="savebutton">
+							<p:commandButton value="Save" action="#{algForm.save()}"
+								ajax="true" update="form, growl"
+								rendered="#{algForm.sessionModel.newMode}" />
+						</p:outputPanel>
+					</div>
+				</h:panelGrid>
+			</div>
+	</div>
+	</h:form>
+</ui:composition>

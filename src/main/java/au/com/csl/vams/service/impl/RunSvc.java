@@ -29,35 +29,13 @@ public class RunSvc implements IRunSvc {
 	}
 
 	@Override
-	public Run getById(String pId) {
-		return getDao().findOne(pId);
-	}
-
-	@Override
-	public Run create(Run pEntity) {
-		return getDao().saveAndFlush(pEntity);
-	}
-
-	@Override
-	public Run update(Run pEntity) {
-		return getDao().saveAndFlush(pEntity);
-
-	}
-
-	@Override
-	public void delete(Run pEntity) {
-		getDao().delete(pEntity);
-
-	}
-
-	@Override
-	public List<Run> getAll() {
-		return getDao().findAll();
-	}
-
-	@Override
 	public List<Run> findByStudyId(String p_id) {
 		return getDao().findByStudyId(p_id);
+	}
+
+	@Override
+	public List<Run> findByIdContainingAndStudyNameContaining(String p_id, String p_name) {
+		return getDao().findByIdContainingAndStudyNameContaining(p_id, p_name);
 	}
 
 }

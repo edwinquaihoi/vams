@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="form">
+		<div class="Container100">
+
+			<div class="TexAlLeft">
+				<h2 class="BigTopic" style="padding-bottom: 0px">Study Type</h2>
+				<h:panelGrid columns="2" cellpadding="5" id="studyTypePanel">
+				<p:outputLabel value="Name *" />
+					<p:outputPanel>
+						<p:inputText required="true" style="width:160px" 
+							value="#{studyTypeForm.sessionModel.model.name}">
+						</p:inputText>
+					</p:outputPanel>
+					<p:outputLabel value="Algorithm *" />
+					<p:outputPanel>
+						<p:selectOneMenu id="algorithm" value="#{studyTypeForm.sessionModel.model.algorithm}" converter="omnifaces.SelectItemsIndexConverter" style="width:125px" required="true">
+							<f:selectItem itemLabel="Select One" itemValue="#{null}" />
+							<f:selectItems value="#{studyTypeForm.algrthms}"  var="algorithm" itemLabel="#{algorithm.name}" itemValue="#{algorithm}" />
+						</p:selectOneMenu>
+					</p:outputPanel>
+					<p:outputLabel value="Plate Type *" />
+					<p:outputPanel>
+						<p:selectOneMenu id="plateType" value="#{studyTypeForm.sessionModel.model.plateType}" converter="omnifaces.SelectItemsIndexConverter" style="width:125px" required="true">
+							<f:selectItem itemLabel="Select One" itemValue="#{null}" />
+							<f:selectItems value="#{studyTypeForm.plateTyps}"  var="plateType" itemLabel="#{plateType.name}" itemValue="#{plateType}" />
+						</p:selectOneMenu>
+					</p:outputPanel>
+					<div class="Container50 TexAlCenter">
+						<p:outputPanel styleClass="studytypebutton">
+							<p:commandButton value="Save" action="#{studyTypeForm.save()}"
+								ajax="true" update="form , growl"
+								rendered="#{studyTypeForm.sessionModel.newMode}" />
+						</p:outputPanel>
+					</div>
+				
+				
+				</h:panelGrid>
+			</div>
+		</div>
+	</h:form>
+</ui:composition>

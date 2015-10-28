@@ -4,12 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
-import au.com.csl.vams.model.relational.Run;
+import au.com.csl.vams.model.relational.PlateVersion;
 
 @NoRepositoryBean
 @Repo
-public interface RunRepository extends JpaRepository<Run, String>  {
+public interface PlateVersionRepository  extends JpaRepository<PlateVersion, String>{
 	
-	List<Run> findByStudyId(String p_id);
-	List<Run> findByIdContainingAndStudyNameContaining(String p_id, String p_name);
+	public List<PlateVersion> findByPlateId(String id);
 }

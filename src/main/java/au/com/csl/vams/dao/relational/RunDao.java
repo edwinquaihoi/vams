@@ -23,4 +23,9 @@ public class RunDao extends AbstractDao<Run, String, RunRepository> implements I
 		return getRepository().findByStudyId(p_id);
 	}
 
+	@Override
+	public List<Run> findByIdContainingAndStudyNameContaining(String p_id, String p_name) {
+		return getRepository().findByIdContainingAndStudyNameContaining(p_id, p_name);
+	}
+
 }

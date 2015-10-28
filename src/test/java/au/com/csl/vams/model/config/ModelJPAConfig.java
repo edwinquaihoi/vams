@@ -1,12 +1,10 @@
 package au.com.csl.vams.model.config;
 
 import java.sql.SQLException;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.SynchronizationType;
 import javax.sql.DataSource;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -19,21 +17,28 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 import au.com.csl.vams.dao.Dao;
+import au.com.csl.vams.dao.IAlgorithmDao;
 import au.com.csl.vams.dao.IPlateDao;
+import au.com.csl.vams.dao.IPlateTypeDao;
 import au.com.csl.vams.dao.IRunDao;
 import au.com.csl.vams.dao.ISampleDao;
 import au.com.csl.vams.dao.IStudyDao;
 import au.com.csl.vams.dao.IStudyTypeDao;
 import au.com.csl.vams.dao.IUserDao;
+import au.com.csl.vams.dao.relational.AlgorithmDao;
 import au.com.csl.vams.dao.relational.PlateDao;
+import au.com.csl.vams.dao.relational.PlateVersionDao;
+import au.com.csl.vams.dao.relational.PlateTypeDao;
 import au.com.csl.vams.dao.relational.RunDao;
 import au.com.csl.vams.dao.relational.SampleDao;
 import au.com.csl.vams.dao.relational.StudyDao;
 import au.com.csl.vams.dao.relational.StudyTypeDao;
 import au.com.csl.vams.dao.relational.UserDao;
+import au.com.csl.vams.dao.relational.repository.AlgorithmRepository;
+import au.com.csl.vams.dao.relational.repository.PlateVersionRepository;
 import au.com.csl.vams.dao.relational.repository.PlateRepository;
+import au.com.csl.vams.dao.relational.repository.PlateTypeRepository;
 import au.com.csl.vams.dao.relational.repository.Repo;
 import au.com.csl.vams.dao.relational.repository.RunRepository;
 import au.com.csl.vams.dao.relational.repository.SampleRepository;
@@ -144,4 +149,23 @@ public class ModelJPAConfig {
 	@Bean @Repo public RunRepository runRepository(JpaRepositoryFactory jpaRepositoryFactory){
 		return jpaRepositoryFactory.getRepository(RunRepository.class);
 	}
+	
+	@Bean @Dao
+	public IAlgorithmDao algorithmDao() {
+		return new AlgorithmDao();
+	}
+	
+	@Bean @Repo public AlgorithmRepository algorithmRepository(JpaRepositoryFactory jpaRepositoryFactory){
+		return jpaRepositoryFactory.getRepository(AlgorithmRepository.class);
+	}
+	
+	@Bean @Dao
+	public IPlateTypeDao plateTypeDao() {
+		return new PlateTypeDao();
+	}
+	
+	@Bean @Repo public PlateTypeRepository plateTypeRepository(JpaRepositoryFactory jpaRepositoryFactory){
+		return jpaRepositoryFactory.getRepository(PlateTypeRepository.class);
+	}
+	
 }

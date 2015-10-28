@@ -43,32 +43,6 @@ public class PlateSvc implements IPlateSvc {
 	public void setSampleDao(ISampleDao sampleDao) {
 		this.sampleDao = sampleDao;
 	}
-
-	@Override
-	public Plate getById(String pId) {
-		return getDao().findOne(pId);
-	}
-
-	@Override
-	public Plate create(Plate pEntity) {
-		return getDao().saveAndFlush(pEntity);
-	}
-
-	@Override
-	public Plate update(Plate pEntity) {
-		return getDao().saveAndFlush(pEntity);
-	}
-
-	@Override
-	public void delete(Plate pEntity) {
-		getDao().delete(pEntity);
-
-	}
-
-	@Override
-	public List<Plate> getAll() {
-		return getDao().findAll();
-	}
 	
 	@Override
 	public void calcLargeVol(Sample sample, Plate plate) {

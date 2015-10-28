@@ -1,6 +1,9 @@
 package au.com.csl.vams.model.relational;
 
 
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -8,10 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-
 import au.com.csl.vams.scaffold.AbstractMasterEntity;
 
 /**
@@ -24,19 +27,23 @@ public class Study extends AbstractMasterEntity<String> {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4L;
-	
+	private static final long serialVersionUID = 5080784782382647244L;
+
+	/**
+	 * 
+	 */
+		
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private String id;
 		
-	private String studyName;
+	private String name;
 	
 	@OneToOne
 	private StudyType studyType;	
 
 	@Transient
-    private List<Run> runs;
+    private List<Run> runs; 
 		
 	private String reason;
 	
@@ -50,13 +57,13 @@ public class Study extends AbstractMasterEntity<String> {
 	public void setId(String id) {
 		this.id = id;
 	}
-		
-	public String getStudyName() {
-		return studyName;
+	
+	public String getName() {
+		return name;
 	}
 
-	public void setStudyName(String studyName) {
-		this.studyName = studyName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public StudyType getStudyType() {
@@ -95,6 +102,11 @@ public class Study extends AbstractMasterEntity<String> {
 	public String getSearchResultInfo() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@PrePersist
+	void createDate() {
+		this.createDate = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
 	}
 
 }

@@ -9,23 +9,21 @@ import javax.persistence.Id;
 import au.com.csl.vams.scaffold.AbstractMasterEntity;
 
 @Entity
-public class Algorithm extends AbstractMasterEntity<Long>{
+public class Algorithm extends AbstractMasterEntity<String>{
 	
 private static final long serialVersionUID = 3L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long id;
+	private String id;
 	
 	private String name;
 	
-	private String studyTypeID;
-			
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -36,15 +34,7 @@ private static final long serialVersionUID = 3L;
 	public void setName(String name) {
 		this.name = name;
 	}
-    		
-	public String getStudyTypeID() {
-		return studyTypeID;
-	}
-
-	public void setStudyTypeID(String studyTypeID) {
-		this.studyTypeID = studyTypeID;
-	}
-
+ 
 	@Override
 	public String getSearchResultInfo() {
 		// TODO Auto-generated method stub

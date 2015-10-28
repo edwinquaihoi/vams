@@ -11,4 +11,5 @@ import au.com.csl.vams.scaffold.IService;
 @Local
 public interface IRunSvc extends IService<Run, String, RunRepository, IRunDao> {
 	List<Run> findByStudyId(String p_id); 
+	List<Run> findByIdContainingAndStudyNameContaining(String p_id, String p_name);
 }

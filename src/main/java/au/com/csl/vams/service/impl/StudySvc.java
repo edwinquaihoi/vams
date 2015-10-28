@@ -27,9 +27,9 @@ public class StudySvc implements IStudySvc{
 	public void setDao(IStudyDao dao) {
 		this.dao = dao;
 	}
-	
+
 	@Override
-	public List<Study> findByStudyNameContainingOrIdContaining(String studyName, String studyId) {
-		return getDao().findByStudyNameContainingOrIdContaining(studyName, studyId);
+	public List<Study> findByNameLikeOrIdContainingOrStudyTypeNameContaining(String studyName, String studyId, String studyType) {
+		return getDao().findByNameLikeOrIdContainingOrStudyTypeNameContaining(studyName, studyId, studyType);
 	}	
 }

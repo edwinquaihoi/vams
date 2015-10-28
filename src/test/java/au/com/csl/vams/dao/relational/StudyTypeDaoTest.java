@@ -20,40 +20,27 @@ public class StudyTypeDaoTest extends RelationalTests{
 	@Dao
 	IStudyTypeDao dao;
 			
-	//@Test
+	@Test
 	public  void saveStudyType()
 	{
 		
 		StudyType studyType= new StudyType();
 		studyType.setName("StudyType1");
-			
-		Algorithm alg=new Algorithm();
-		alg.setName("AlgorithmOne");
 		
+		Algorithm alg = new Algorithm();
+		alg.setName("alg1");
 		
-		List<Algorithm> algLst= new ArrayList<Algorithm>();
-		algLst.add(alg);
+		studyType.setAlgorithm(alg);
 		
-		studyType.setAlgorithms(algLst);
-				
-		PlateType plateType=new PlateType();
-		plateType.setName("PlateTypeOne");
+		PlateType plateType = new PlateType();
+		plateType.setName("platetype1");
 		
+		studyType.setPlateType(plateType);
 		
-		List<PlateType> plateTypeLst= new ArrayList<PlateType>();
-		plateTypeLst.add(plateType);
-		
-		studyType.setPlateTypes(plateTypeLst);
-											
 		StudyType studyTypeNew=dao.saveAndFlush(studyType);
 		
 		List<StudyType> studies = dao.findAll();
-		/*assertNotNull(studies.get(0).getAlgorithms().get(0).getStudyType()); 
-		assertEquals(studies.get(0).getAlgorithms().get(0).getStudyType().getId(), studyTypeNew.getId());
-		
-		assertNotNull(studies.get(0).getPlateTypes().get(0).getStudyType()); 
-		assertEquals(studies.get(0).getPlateTypes().get(0).getStudyType().getId(), studyTypeNew.getId());
-							*/
+	
 	}
 	
 	

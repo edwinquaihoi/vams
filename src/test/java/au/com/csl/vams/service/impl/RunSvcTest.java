@@ -34,7 +34,7 @@ public class RunSvcTest extends ServiceTests{
 
 		// create plate and set it to run
 		Plate plate = new Plate();
-		plate.setPlateName("PlateName1");
+		plate.setName("PlateName1");
 		plate.setRun(run);
 		plateSvc.create(plate);
 

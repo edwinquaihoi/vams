@@ -8,6 +8,7 @@ import au.com.csl.vams.dao.IStudyDao;
 import au.com.csl.vams.dao.relational.repository.StudyRepository;
 import au.com.csl.vams.model.relational.Study;
 
+
 @Dao
 public class StudyDao extends AbstractDao<Study, String, StudyRepository> implements IStudyDao{
 	@Override
@@ -18,8 +19,8 @@ public class StudyDao extends AbstractDao<Study, String, StudyRepository> implem
 	}
 
 	@Override
-	public List<Study> findByStudyNameContainingOrIdContaining(String p_name, String p_id) {
-		return getRepository().findByStudyNameContainingOrIdContaining(p_name, p_id);
+	public List<Study> findByNameLikeOrIdContainingOrStudyTypeNameContaining(String p_name, String p_id,String p_type) {
+		return getRepository().findByNameLikeOrIdContainingOrStudyTypeNameContaining(p_name, p_id, p_type);
 	}
 
 	

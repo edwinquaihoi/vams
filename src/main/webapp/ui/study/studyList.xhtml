@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:form id="form">
+<div class="Container100">
+
+		<div class="TexAlLeft">
+		<h2 class="BigTopic" style="padding-bottom: 0px">
+			Studies
+		</h2>
+
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Name" />
+					<p:outputPanel>
+						<p:inputText style="width:160px" value="#{studyForm.name}">
+						</p:inputText>
+					</p:outputPanel>
+					<p:outputLabel value="Id" />
+					<p:outputPanel>
+						<p:inputText style="width:160px" value="#{studyForm.id}">
+						</p:inputText>
+					</p:outputPanel>
+					<p:outputLabel value="Type" />
+					<p:outputPanel>
+						<p:inputText style="width:160px" value="#{studyForm.type}">
+						</p:inputText>
+					</p:outputPanel>
+					<div class="Container50 TexAlCenter">
+						<p:outputPanel styleClass="srchbutton">
+							<p:commandButton value="Search"
+								action="#{studyForm.searchByIDOrName()}" ajax="true"
+								update="form,studydata,growl" process="@form" />
+							<p:commandButton value="New" styleClass="newButton"
+								action="#{studyForm.viewNewOne}" ajax="true" update="form,growl" />
+						</p:outputPanel>
+					</div>
+				</h:panelGrid>
+
+				<div class="Container100 Responsive100"
+					style="background: transparent">
+					<p:dataTable id="studydata" var="study"  widgetVar="studyTable" emptyMessage="No study found with given criteria" filteredValue="#{studyForm.filteredStudies}"
+						value="#{studyForm.sessionModel.results}" rows="5" selectionMode="single" selection="#{studyForm.selectedStudy}" rowKey="#{study.id}"
+						paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15" reflow="true"
+						styleClass="graypanel Fs20">
+						
+						<f:facet name="header">
+				           <p:outputPanel>
+				               <h:outputText value="Search all fields:" />
+				               <p:inputText id="globalFilter" onkeyup="PF('studyTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+				           </p:outputPanel>
+				       </f:facet>
+						<p:ajax event="rowSelect" listener="#{studyForm.onRowSelect}" update="form,growl" />
+						<p:column filterBy="#{study.id}" headerText="Id" footerText="contains" filterMatchMode="contains">
+							<h:outputText value="#{study.id}" />
+						</p:column>
+						<p:column headerText="Name" filterBy="#{study.name}" footerText="contains" filterMatchMode="contains" >
+							<h:outputText value="#{study.name}" />
+						</p:column>
+						<p:column headerText="Type" filterBy="#{study.studyType.name}" footerText="contains" filterMatchMode="contains" >
+							<h:outputText value="#{study.studyType.name}" />
+						</p:column>
+					</p:dataTable>
+				</div>
+				<div class="Container50 TexAlCenter">
+						
+					</div>
+				
+		</div>
+	</div>
+	</h:form>
+</ui:composition>

@@ -7,7 +7,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import au.com.csl.vams.model.relational.Plate;
 import au.com.csl.vams.model.relational.Run;
 import au.com.csl.vams.model.relational.Study;
 import au.com.csl.vams.scaffold.AbstractMaintenanceForm;
@@ -15,17 +14,16 @@ import au.com.csl.vams.scaffold.IService;
 import au.com.csl.vams.service.IPlateSvc;
 import au.com.csl.vams.service.IRunSvc;
 import au.com.csl.vams.service.IStudySvc;
-import au.com.csl.vams.utils.PageDetails;
-
-
-
 
 @ManagedBean(name = "runForm")
 @ViewScoped
 public class RunForm extends AbstractMaintenanceForm<String, Run> {
-	
-	private static final long serialVersionUID = 2L;
-	
+		
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2873561682266173077L;
+
 	private static final Logger logger = LoggerFactory.getLogger(RunForm.class);
 	
 	@EJB
@@ -39,8 +37,19 @@ public class RunForm extends AbstractMaintenanceForm<String, Run> {
 		
 	@ManagedProperty("#{plateModel}")
 	PlateModel plateModel;
-				
 	
+	private boolean disable;
+	
+	private Study study;
+	
+	public Study getStudy() {
+		return study;
+	}
+
+	public void setStudy(Study study) {
+		this.study = study;
+	}
+
 	public IPlateSvc getPlateSvc() {
 		return plateSvc;
 	}
@@ -72,6 +81,14 @@ public class RunForm extends AbstractMaintenanceForm<String, Run> {
 	public void setRunSvc(IRunSvc runSvc) {
 		this.runSvc = runSvc;
 	}
+		
+	public boolean isDisable() {
+		return disable;
+	}
+
+	public void setDisable(boolean disable) {
+		this.disable = disable;
+	}
 
 	@Override
 	public Run getNewOne() {
@@ -96,49 +113,36 @@ public class RunForm extends AbstractMaintenanceForm<String, Run> {
 		return runSvc;
 	}
 	
-		
-	public void addPlate()
-	{
-		List<Study> studyLst=null;
-		List<Run> runLst=null;
-		Run run = null;
-		if(!getSessionModel().getModel().getStudy().getStudyName().isEmpty() || !getSessionModel().getModel().getStudy().getId().isEmpty())
-		{
-			studyLst=studySvc.findByStudyNameContainingOrIdContaining(getSessionModel().getModel().getStudy().getStudyName(), getSessionModel().getModel().getStudy().getId());
-		}
-		else if(!getSessionModel().getModel().getId().isEmpty() && (!getSessionModel().getModel().getStudy().getStudyName().isEmpty() || !getSessionModel().getModel().getStudy().getId().isEmpty()))
-		{
-			runLst=runSvc.findByStudyId(getSessionModel().getModel().getStudy().getId()); // if not null run exist and do n't add new on add run new
-		}
-		
-		System.out.println("studyLst***"+studyLst.toString());
-		if (!studyLst.isEmpty()) {
+	@Override
+	public String save() {
+		String sName = getSessionModel().getModel().getStudy().getName();
+		String sId = getSessionModel().getModel().getStudy().getId();
+		List<Study> studyLst=studySvc.findByNameLikeOrIdContainingOrStudyTypeNameContaining(sName.isEmpty() ? "null" : "%"+sName+"%", sId.isEmpty() ? "null": sId, "null");
+		List<Run> runLst=runSvc.findByStudyId(getSessionModel().getModel().getStudy().getId()); 
+		if (!studyLst.isEmpty() || !runLst.isEmpty()) {
 			for (Study study : studyLst) {
-				if(study.getRuns() == null)
-					run = new Run();
-					run.setStudy(study);
-					runSvc.create(run);
-
+				getSessionModel().getModel().setStudy(study);
 			}
-			
-			//create a new plate
-			//add run to that plate
-			// set that as model
-			
-			Plate plate = new Plate();
-			plate.setRun(run);
-			plateSvc.create(plate);
-			//getSessionModel().setModel(plate);
-			//getPlateModel().setPlate(plate);
-			//getSessionModel().addPage(new PageDetails("ui/plate/plate.xhtml", null, "PlateForm"));
-			//getSessionModel().addPage(new PageDetails(plateSvc.create(plate), "ui/plate/plate.xhtml", null, null));
-			getSessionModel().setContent("ui/plate/plate.xhtml");
-			
-			
-			
+			super.save();
 		}
+		setDisable(true);
+		Run r= runSvc.getById(getSessionModel().getModel().getId());
+		getSessionModel().getModel().setStudy(r.getStudy());
+		return null;
+	}
 	
-		
+	@Override
+	public void viewOne(Run run)
+	{
+		super.viewOne(run);
+		setDisable(true);
+	}
+	
+	@Override
+	public void viewNewOne()
+	{
+		super.viewNewOne();
+		getSessionModel().getModel().setStudy(study);
 	}
 
 

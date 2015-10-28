@@ -1,10 +1,13 @@
 package au.com.csl.vams.model.relational;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+
 import au.com.csl.vams.scaffold.AbstractMasterEntity;
 
 /**
@@ -12,43 +15,47 @@ import au.com.csl.vams.scaffold.AbstractMasterEntity;
  *
  */
 @Entity
-public class PlateVersion extends AbstractMasterEntity<Long>{
+public class PlateVersion extends AbstractMasterEntity<String>{
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 9L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
-	private String plateVerName;
-	
-	private Plate plate;
+	private static final long serialVersionUID = 3239461101660694089L;
 
-	public Long getId() {
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private String id;
+			
+	private String plateId;
+	
+	@Lob
+	private String plateElmns;
+	
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public String getPlateVerName() {
-		return plateVerName;
+	public String getPlateId() {
+		return plateId;
 	}
 
-	public void setPlateVerName(String plateVerName) {
-		this.plateVerName = plateVerName;
+	public void setPlateId(String plateId) {
+		this.plateId = plateId;
 	}
 	
-	public Plate getPlate() {
-		return plate;
+	public String getPlateElmns() {
+		return plateElmns;
 	}
 
-	public void setPlate(Plate plate) {
-		this.plate = plate;
+	public void setPlateElmns(String plateElmns) {
+		this.plateElmns = plateElmns;
 	}
 
 	@Override

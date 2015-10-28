@@ -1,15 +1,12 @@
 package au.com.csl.vams.model.relational;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import au.com.csl.vams.scaffold.AbstractMasterEntity;
-import java.util.List;
 
 /**
  * @author chamun
@@ -21,23 +18,39 @@ public class StudyType extends AbstractMasterEntity<String> {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3501791258520473967L;
+
+	/**
+	 * 
+	 */
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private String id;
-	
-	
-	private String name;
 		
-	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	@JoinColumn(name="STUDY_TYPE_ID")
-	private List<Algorithm> algorithms;
+	private String name;
+			
+	@OneToOne
+	private Algorithm algorithm;
 	
-	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	@JoinColumn(name="STUDY_TYPE_ID")
-    private List<PlateType> plateTypes;
+	@OneToOne
+	private PlateType plateType;
+		
+	public PlateType getPlateType() {
+		return plateType;
+	}
 
+	public void setPlateType(PlateType plateType) {
+		this.plateType = plateType;
+	}
+
+	public Algorithm getAlgorithm() {
+		return algorithm;
+	}
+
+	public void setAlgorithm(Algorithm algorithm) {
+		this.algorithm = algorithm;
+	}
 
 	public String getId() {
 		return id;
@@ -54,23 +67,7 @@ public class StudyType extends AbstractMasterEntity<String> {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public List<Algorithm> getAlgorithms() {
-		return algorithms;
-	}
-
-	public void setAlgorithms(List<Algorithm> algorithms) {
-		this.algorithms = algorithms;
-	}
-	
-	public List<PlateType> getPlateTypes() {
-		return plateTypes;
-	}
-
-	public void setPlateTypes(List<PlateType> plateTypes) {
-		this.plateTypes = plateTypes;
-	}
-	
+		
 	@Override
 	public String getSearchResultInfo() {
 		// TODO Auto-generated method stub
@@ -79,7 +76,7 @@ public class StudyType extends AbstractMasterEntity<String> {
 
 	@Override
 	public String toString() {
-		return "StudyType [id=" + id + ", name=" + name + ", algorithms=" + algorithms + "]";
+		return "StudyType [id=" + id + ", name=" + name + "]";
 	}
 	
 	

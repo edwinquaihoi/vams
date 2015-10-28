@@ -1,15 +1,18 @@
 package au.com.csl.vams.model.relational;
 
-import java.util.List;
 
-import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.PostLoad;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import au.com.csl.vams.scaffold.AbstractMasterEntity;
 
@@ -28,6 +31,9 @@ public class Run extends AbstractMasterEntity<String>{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private String id;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createDate;
 			
 	@ManyToOne
 	private Study study;
@@ -42,7 +48,15 @@ public class Run extends AbstractMasterEntity<String>{
 	public void setId(String id) {
 		this.id = id;
 	}
-		
+				
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
 	public List<Plate> getPlates() {
 		return plates;
 	}
@@ -65,5 +79,17 @@ public class Run extends AbstractMasterEntity<String>{
 		return null;
 	}
 	
-	
+	@PrePersist
+	void createDate() {
+		this.createDate = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
+	}
+		
+	public long getPlatesCount() {
+		if (getPlates() != null) {
+			return getPlates().size();
+		} else {
+			return 0;
+		}
+	}
+		
 }

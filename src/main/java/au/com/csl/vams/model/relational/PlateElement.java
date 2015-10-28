@@ -1,10 +1,16 @@
 package au.com.csl.vams.model.relational;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
 import au.com.csl.vams.scaffold.AbstractMasterEntity;
 
 /**
@@ -13,7 +19,7 @@ import au.com.csl.vams.scaffold.AbstractMasterEntity;
  */
 
 @Entity
-public class PlateElement extends AbstractMasterEntity<Long>{
+public class PlateElement extends AbstractMasterEntity<String>{
 	/**
 	 * 
 	 */
@@ -21,54 +27,54 @@ public class PlateElement extends AbstractMasterEntity<Long>{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long id;
+	private String id;
 	
-	private Integer row;
+	private String row;
 	
-	private Integer column;
+	private String column;
 	
-	private Integer value;
+	private String value;
 	
-	private String plateID;
-	
-	public Long getId() {
+	private String plateId;
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public Integer getRow() {
+	public String getRow() {
 		return row;
 	}
 
-	public void setRow(Integer row) {
+	public void setRow(String row) {
 		this.row = row;
 	}
 
-	public Integer getColumn() {
+	public String getColumn() {
 		return column;
 	}
 
-	public void setColumn(Integer column) {
+	public void setColumn(String column) {
 		this.column = column;
 	}
 
-	public Integer getValue() {
+	public String getValue() {
 		return value;
 	}
 
-	public void setValue(Integer value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 
-	public String getPlateID() {
-		return plateID;
+	public String getPlateId() {
+		return plateId;
 	}
 
-	public void setPlateID(String plateID) {
-		this.plateID = plateID;
+	public void setPlateId(String plateId) {
+		this.plateId = plateId;
 	}
 
 	@Override

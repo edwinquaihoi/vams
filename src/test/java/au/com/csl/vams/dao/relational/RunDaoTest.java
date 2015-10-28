@@ -33,7 +33,7 @@ public class RunDaoTest extends RelationalTests{
 	{
 		Run run = new Run();
 		Plate plate = new Plate();
-		plate.setPlateName("PlateName1");
+		plate.setName("PlateName1");
 
 		plate.setRun(run);
 		List<Plate> plateLst = new ArrayList<Plate>();
@@ -41,16 +41,23 @@ public class RunDaoTest extends RelationalTests{
 		run.setPlates(plateLst);
 		
 		Study study = new Study();
-		study.setStudyName("study1");
-		study.setCreateDate(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+		study.setName("study5");
+		//study.setCreateDate(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
 		Study studyNew=studyDao.saveAndFlush(study);
+		//System.out.println("studyNew"+studyNew);
 
 		run.setStudy(studyNew);
 		
 		dao.saveAndFlush(run);
 		
-		List<Run> runLst=dao.findByStudyId("1");
-		assertEquals("study1",runLst.get(0).getStudy().getStudyName());
+		//System.out.println(dao.findAll().toString());
+		
+		//List<Run> runLst1=dao.findByStudyId("1");
+		//System.out.println("latest1"+runLst1);
+		//assertEquals("study1",runLst.get(0).getStudy().getStudyName());
+		
+		List<Run> runLst= dao.findByIdContainingAndStudyNameContaining("2", "null");
+		//System.out.println("latest"+runLst);
 		
 		
 	}

@@ -3,175 +3,83 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
+	<h:form id="form">
 	<div class="Container100">
 		<div class="TexAlLeft">
-
+			<h2 class="BigTopic" style="padding-bottom: 0px">
+					Plate
+			</h2>
 			<h:panelGrid columns="2">
 				<p:outputLabel value="Study Name" />
 				<p:outputPanel>
 					<p:inputText style="width:56%;margin-right:5px;"
-						value="#{plateForm.sessionModel.model.study.studyName}">
+						value="#{plateForm.sessionModel.model.run.study.name}">
 					</p:inputText>
 				</p:outputPanel>
-				<p:outputLabel value="Study Number" />
+				<!-- <p:outputLabel value="Study Id" />
 				<p:outputPanel>
 					<p:inputText style="width:56%;margin-right:5px;"
-						value="#{plateForm.sessionModel.model.study.id}">
+						value="#{plateForm.sessionModel.model.run.study.id}">
 					</p:inputText>
-				</p:outputPanel>
-				<p:outputLabel value="Run Number" />
+				</p:outputPanel> -->
+				<p:outputLabel value="Run Id" />
 				<p:outputPanel>
 					<p:inputText style="width:56%;margin-right:5px;"
-						value="#{plateForm.sessionModel.model.id}">
+						value="#{plateForm.sessionModel.model.run.id}">
 					</p:inputText>
 				</p:outputPanel>
-				<p:outputLabel />
+				<p:outputLabel value="Plate Name" />
+				<p:outputPanel>
+					<p:inputText style="width:56%;margin-right:5px;"
+						value="#{plateForm.sessionModel.model.name}">
+					</p:inputText>
+				</p:outputPanel>
 			</h:panelGrid>
+			<div class="EmptyBox10"></div>
+				<p:tabView>
+					<p:tab title="Menu">
+						<h:panelGrid columns="2" cellpadding="10">
 
-			<p:panelGrid style="margin-top:20px">
-				<f:facet name="header">
-					<p:row>
-						<p:column colspan="7">xxxxx</p:column>
-					</p:row>
-					<p:row>
-						<p:column></p:column>
-						<p:column>1</p:column>
-						<p:column>2</p:column>
-						<p:column>3</p:column>
-						<p:column>4</p:column>
-						<p:column>5</p:column>
-						<p:column>6</p:column>
-						<p:column>7</p:column>
-						<p:column>8</p:column>
-						<p:column>9</p:column>
-						<p:column>10</p:column>
-						<p:column>11</p:column>
-						<p:column>12</p:column>
-					</p:row>
-				</f:facet>
-				<p:row>
-					<p:column> A </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-				</p:row>
-				<p:row>
-					<p:column> B </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-				</p:row>
-				<p:row>
-					<p:column> C </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-				</p:row>
-				<p:row>
-					<p:column> D </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-				</p:row>
-				<p:row>
-					<p:column> E </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-				</p:row>
-				<p:row>
-					<p:column> F </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-				</p:row>
-				<p:row>
-					<p:column> G </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-				</p:row>
-				<p:row>
-					<p:column> H </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-					<p:column> - </p:column>
-				</p:row>
-			</p:panelGrid>
+							<p:dataTable var="rowName"
+								value="#{plateForm.rows.entrySet().toArray()}" tableStyle="table-layout:auto;width:40%;">
+								<p:column headerText="" styleClass="ui-widget-header">
+									<h:outputText value="#{rowName.value}" />
+								</p:column>
 
+								<p:columns var="columnName"
+									value="#{plateForm.cols.entrySet().toArray()}"
+									headerText="#{columnName.value}">
+										<p:inputSwitch value="#{plateForm.vals[columnName.key][rowName.key]}" />
+								</p:columns>
+							</p:dataTable>
+						</h:panelGrid>
+					</p:tab>
+
+					<p:tab title="History">
+						<p:dataScroller value="#{plateForm.valLst}" var="map" chunkSize="2" >
+							<p:dataTable value="#{plateForm.rows.entrySet().toArray()}" var="rowName" rowIndexVar="rowIdx" tableStyle="table-layout:auto;width:30%;" emptyMessage="No records found." >
+									<p:column>
+										<h:outputText value="#{rowName.value}"/>
+									</p:column>
+									
+									<p:columns var="columnName" value="#{plateForm.cols.entrySet().toArray()}" headerText="#{columnName.value}" columnIndexVar="colIdx" style="width:5px;height:5px">
+									<ui:repeat value="#{map}" var="entry">
+										<p:inputSwitch value="#{entry[columnName.key][rowName.key]}" disabled="true" />
+									</ui:repeat>
+								</p:columns>
+								</p:dataTable>
+						</p:dataScroller>
+					</p:tab>
+				</p:tabView>
+
+			<div class="EmptyBox5"></div>
+			<div class="Container50">
+				<p:outputPanel styleClass="savebutton">
+					<p:commandButton value="Save" action="#{plateForm.save()}" ajax="true" update="form, growl"/>
+					
+				</p:outputPanel>
+			</div>
+			</div>
 		</div>
-	
-	</div>
+	</h:form>
 </ui:composition>

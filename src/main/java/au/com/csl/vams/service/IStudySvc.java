@@ -11,6 +11,6 @@ import au.com.csl.vams.scaffold.IService;
 @Local
 public interface IStudySvc extends IService<Study, String, StudyRepository, IStudyDao>{
 	
-	List<Study> findByStudyNameContainingOrIdContaining(String studyName, String studyId);
+	List<Study> findByNameLikeOrIdContainingOrStudyTypeNameContaining(String studyName, String studyId, String studyType);
 
 }
