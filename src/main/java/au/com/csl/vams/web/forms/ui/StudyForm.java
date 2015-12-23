@@ -44,9 +44,7 @@ public class StudyForm  extends AbstractMaintenanceForm<String, Study>{
 	 */
 
 	private static Logger logger = LoggerFactory.getLogger(StudyForm.class); 
-	
-	private TreeNode root;
-	private TreeNode selectedNode;
+
 	
 	private List<StudyType> studytypes;
 		
@@ -84,24 +82,7 @@ public class StudyForm  extends AbstractMaintenanceForm<String, Study>{
 	public void setRunForm(RunForm runForm) {
 		this.runForm = runForm;
 	}
-
-	public TreeNode getSelectedNode() {
-		return selectedNode;
-	}
-
-	public void setSelectedNode(TreeNode selectedNode) {
-		this.selectedNode = selectedNode;
-	}
-
-	public void setRoot(TreeNode root)
-	{
-		this.root=root;
-	}
 	
-	public TreeNode getRoot() {
-		return root;
-	}
-
 	public boolean isDisable() {
 		return disable;
 	}
@@ -254,7 +235,6 @@ public class StudyForm  extends AbstractMaintenanceForm<String, Study>{
 		viewOne(study);
 		studytypes.clear();
 		studytypes.add(study.getStudyType());
-		createNodes(study);
 		setDisable(true);
 
 	}
@@ -280,10 +260,14 @@ public class StudyForm  extends AbstractMaintenanceForm<String, Study>{
 					run.setStudy(study);
 					runSvc.create(run);
 				}
-
+				
+				ConfigUtil.growl("Info", "Changes saved");
+				setDisable(true);
+			}else
+			{
+				ConfigUtil.growl("Info", "Please save study and continue");
 			}
-			ConfigUtil.growl("Info", "Changes saved");
-			setDisable(true);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			ConfigUtil.growl("Error", "Could not save the changes");
@@ -292,54 +276,6 @@ public class StudyForm  extends AbstractMaintenanceForm<String, Study>{
 		getRuns(getSessionModel().getModel());
 		return null;
 	}
-	
-	public void createNodes(Study study) {
-		
-
-		root = new DefaultTreeNode("Root", null);
-		TreeNode studyNode0 = new DefaultTreeNode("Runs", root);
-		//TreeNode studyNode1 = new DefaultTreeNode("Study Name: " + study.getName(), studyNode0);
-		//TreeNode studyNode2 = new DefaultTreeNode("Run", studyNode0);
-
-		if (study.getRuns() != null) {
-			for (Run run : study.getRuns()) {
-				studyNode0.getChildren().add(new DefaultTreeNode("Run Id: " + run.getId() + ", " + "Create Date: " + run.getFormattedCreateDate() + ", " + "Plates: " + run.getPlates().size()));
-				//studyNode0.getChildren().add(new DefaultTreeNode("Create Date: " + run.getFormattedCreateDate()));
-				//studyNode0.getChildren().add(new DefaultTreeNode("Plates : " + run.getPlates().size()));
-
-			}
-		}
-		
-		
-		   /* root = new DefaultTreeNode("Root", null);
-	        
-		    if (study.getRuns() != null) {
-				for (Run run : study.getRuns()) {
-					TreeNode treeRun = new DefaultTreeNode(new Document("Runs",run), root);
-					
-				}
-		    }*/
-		    
-	        
-	        
-	}
-	
-	public void displaySelectedSingle() {
-		if (selectedNode != null) {
-		    Run run = runSvc.getById(selectedNode.getData().toString().substring(8,11));
-			runForm.viewOne(run);
-		}
-	}
-	
-	public void onNodeSelect(NodeSelectEvent event) {
-		TreeNode node = event.getTreeNode();
-		if (node.isLeaf()) {
-			Run run = runSvc.getById(node.getData().toString().substring(8, 11));
-			runForm.viewOne(run);
-		}
-
-	}
-	
 	
 	@Override
 	public void viewOne(Study study)

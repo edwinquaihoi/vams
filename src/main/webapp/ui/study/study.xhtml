@@ -52,7 +52,7 @@
 								ajax="true" update="mainContent,form"  >
 								 <f:setPropertyActionListener target="#{runForm.study}" value="#{studyForm.sessionModel.model}" />
 								</p:commandButton> -->
-									<p:commandButton id="btnRun" value="Add Run"
+									<p:commandButton id="btnRun" value="Add Run" 
 										styleClass="runbutton white" icon="fa fa-plus"
 										action="#{studyForm.saveRun}" ajax="true" update="form, growl">
 										<f:setPropertyActionListener target="#{runForm.study}"
@@ -62,115 +62,14 @@
 								</p:outputPanel>
 							</div>
 						</h:panelGrid>
-						<!-- <h2 class="BigTopic" style="padding-bottom: 0px">
-					Runs
-				</h2>
-				<div class="Container100 Responsive100"
-					style="background: transparent">
-					<p:dataTable id="rundata" var="run"
-						value="#{studyForm.sessionModel.model.runs}" rows="5"
-						paginator="true"
-						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						rowsPerPageTemplate="5,10,15" reflow="true"
-						styleClass="graypanel Fs20">
-						<p:column headerText="Id">
-							<h:outputText value="#{run.id}" />
-						</p:column>
-						<p:column headerText="Date">
-							<h:outputText value="#{run.createDate}">
-								<f:convertDateTime pattern="dd-MMM-yy HH:mm"></f:convertDateTime>
-							</h:outputText>
-							
-						</p:column>
-						<p:column headerText="Plates">
-							<h:outputText value="#{run.plates.size()}" />
-						</p:column>
-						<p:column>
-							<p:commandLink id="viewRun" update="form,growl"
-								actionListener="#{runForm.viewOne(run)}">
-								<h:outputText value="Run" />
-							</p:commandLink>
-						</p:column>
-
-					</p:dataTable>
-				</div> -->
-
-
-
-						<!-- <p:treeTable value="#{studyForm.root}" var="study" style="margin-top:0" scrollable="true" scrollHeight="150">
-					<p:column>
-						<h:outputText value="#{study.run.id}" />
-					</p:column>
-					<p:column>
-							<p:commandLink id="viewRun" update="form,growl"
-								actionListener="#{runForm.viewOne(run)}">
-								<h:outputText value="Run" />
-							</p:commandLink>
-						</p:column>
-				</p:treeTable>
- -->
-
-						<!-- 	<p:tree value="#{studyForm.root}" var="node"    style="width:27%">
-				<p:ajax event="select" update="form" listener="#{studyForm.displaySelectedSingle}" />
-					<p:treeNode id="treeNode">
-						<h:outputText value="Run Id: #{node.name}, "  />
-						<h:outputText value="Run Id: #{node.run.id}, "  />
-						<h:outputText value="Plates: #{node.run.plates.size()}"  />
-						<p:commandLink id="viewRun" update="form,growl"
-								actionListener="#{runForm.viewOne(node.run)}">
-								<h:outputText value="Run" />
-						</p:commandLink>
-						
-					</p:treeNode>
-					
-				</p:tree> -->
-
+	
 
 
 						<div class="EmptyBox5"></div>
 						<!-- <p:commandButton value="Display"  update="form, growl" actionListener="#{studyForm.displaySelectedSingle}" rendered="#{studyForm.sessionModel.editMode}"/> -->
+						</div>
 
-
-
-					</div>
-
-					<!-- <div class="Container100">
-				<p:tree value="#{studyForm.root}" var="node" dynamic="true"  animate="true" selectionMode="single" selection="#{studyForm.selectedNode}" rendered="#{studyForm.sessionModel.editMode}"  style="width: 100%;">
-				<p:ajax event="select" update="form, growl" listener="#{studyForm.onNodeSelect}" />
-					<p:treeNode >
-						<p:commandLink  update="form, growl" actionListener="#{studyForm.displaySelectedSingle}" rendered="#{studyForm.sessionModel.editMode}">
-							<h:outputText value="#{node}" />
-						</p:commandLink>
-					</p:treeNode>
-					
-				</p:tree>
-			</div> -->
-
-
-
-
-					<!-- <p:accordionPanel activeIndex="null">
-				<p:tab>
 				
-				
-				<f:facet name="title">
-					<div class="Container100">
-					
-					<div class="Container90">
-						<h:outputText value="Runs" class="Fs21" />
-					</div>
-						
-					<div class="Container10">
-						<p:commandButton    icon="fa fa-plus" style="padding:0px; margin-top:-3px!important;" id="addplate" value= "Add Run" styleClass="RaisedButton GrayButton BoldGray" action="#{studyForm.saveRun}"  ajax="true" update="form, growl"   >
-							 <f:setPropertyActionListener target="#{runForm.study}" value="#{studyForm.sessionModel.model}" />
-						</p:commandButton>
-					</div>
-						
-						
-					</div>
-					<div class="EmptyBox5" />
-				</f:facet> -->
-
 					<div class="ContainerIndent"
 						style="padding-top: 0px; padding-right: 0px;">
 						<div class="runs">
@@ -260,9 +159,6 @@
 							</p:accordionPanel>
 						</div>
 					</div>
-
-					<!-- 	</p:tab>
-			</p:accordionPanel>  -->
 				</div>
 			</div>
 		</div>
