@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:form id="form">
+<div class="Container100 ui-fluid">
+	<div class="ContainerIndent">
+		<div class="ShadowBox whiteback RedBorderedBox">
+			<div class="TexAlLeft">
+			<h2 class="BigTopic" style="padding-bottom: 0px">
+				Algorithms
+			</h2>
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel value="Name: " />
+					<p:outputPanel>
+						<p:inputText style="width:160px" value="#{algForm.name}">
+						</p:inputText>
+					</p:outputPanel>
+				<div class="Container50 TexAlCenter">
+						<p:outputPanel styleClass="srchbutton">
+							<p:commandButton value="Search"
+								action="#{algForm.searchByName()}" ajax="true"
+								update="form,algdata,growl" process="@form" />
+							<p:commandButton value="New" styleClass="newButton"
+								action="#{algForm.viewNewOne}" ajax="true" update="form,growl" />
+						</p:outputPanel>
+					</div>
+				</h:panelGrid>
+				
+				<div class="EmptyBox10"></div>
+				<div class="Container100 Responsive100"
+					style="background: transparent">
+					<p:dataTable id="algdata" var="alg"  widgetVar="algTable" emptyMessage="No algorithm found with given criteria" filteredValue="#{algForm.filteredalgs}"
+						value="#{algForm.sessionModel.results}" rows="5" selectionMode="single" selection="#{algForm.selectedAlg}" rowKey="#{alg.id}"
+						paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15" reflow="true"
+						styleClass="graypanel Fs20">
+						
+						<f:facet name="header">
+				           <p:outputPanel>
+				               <h:outputText value="Search all fields:" />
+				               <p:inputText id="globalFilter" onkeyup="PF('algtypeTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+				           </p:outputPanel>
+				       </f:facet>
+						<p:ajax event="rowSelect" listener="#{algForm.onRowSelect}" update="form,growl" />
+						<p:column headerText="Name" filterBy="#{alg.name}" footerText="contains" filterMatchMode="contains" >
+							<h:outputText value="#{alg.name}" />
+						</p:column>
+						<p:column headerText="TypeParameters" filterBy="#{alg.parameters.size()}" footerText="contains" filterMatchMode="contains" >
+							<h:outputText value="#{alg.parameters.size()}" />
+						</p:column>
+					</p:dataTable>
+				</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</h:form>
+</ui:composition>

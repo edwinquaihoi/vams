@@ -12,16 +12,22 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ValueChangeEvent;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
 import au.com.csl.vams.model.relational.Plate;
 import au.com.csl.vams.model.relational.PlateElement;
+import au.com.csl.vams.model.relational.PlateType;
 import au.com.csl.vams.model.relational.PlateVersion;
 import au.com.csl.vams.model.relational.Run;
 import au.com.csl.vams.model.relational.Study;
 import au.com.csl.vams.scaffold.AbstractMaintenanceForm;
+import au.com.csl.vams.scaffold.ICalculatePlugin;
 import au.com.csl.vams.scaffold.IService;
+import au.com.csl.vams.scaffold.PluginFactory;
 import au.com.csl.vams.service.IPlateSvc;
+import au.com.csl.vams.service.IPlateTypeSvc;
 import au.com.csl.vams.service.IPlateVersionSvc;
 import au.com.csl.vams.service.IRunSvc;
 import au.com.csl.vams.service.IStudySvc;
@@ -44,18 +50,39 @@ public class PlateForm extends AbstractMaintenanceForm<String, Plate> {
 	@EJB
 	private IStudySvc studySvc;
 	
-	private Map<String,String> rows;
+	@EJB
+	private IPlateTypeSvc plateTypeSvc;
 	
-	private Map<String,String> cols;
+	private Map<String,String> rows = new LinkedHashMap<>();;
 	
-	private Map<String,Map<String,Boolean>> vals;
+	private Map<String,String> cols = new LinkedHashMap<>();
 	
-	private List< Map<String,Map<String,Boolean>>> valLst;
+	private Map<String,Map<String,Boolean>> vals = new HashMap<>();;
+	
+	private List< Map<String,Map<String,Boolean>>> valLst =new ArrayList<Map<String,Map<String,Boolean>>>();
 	
 	private Run run;
 
 	private List<PlateVersion> plateVersns;
-									
+	
+	//private List<PlateType> platetypes;
+											
+	/*public List<PlateType> getPlatetypes() {
+		return platetypes;
+	}
+
+	public void setPlatetypes(List<PlateType> platetypes) {
+		this.platetypes = platetypes;
+	}*/
+	
+	public IPlateTypeSvc getPlateTypeSvc() {
+		return plateTypeSvc;
+	}
+
+	public void setPlateTypeSvc(IPlateTypeSvc plateTypeSvc) {
+		this.plateTypeSvc = plateTypeSvc;
+	}
+
 	public Run getRun() {
 		return run;
 	}
@@ -97,7 +124,6 @@ public class PlateForm extends AbstractMaintenanceForm<String, Plate> {
 	}
 
 	public IStudySvc getStudySvc() {
-		System.out.println("in plateform");
 		return studySvc;
 	}
 
@@ -164,21 +190,24 @@ public class PlateForm extends AbstractMaintenanceForm<String, Plate> {
 	}
 	
 	@Override
-	public void viewNewOne()
-	{
+	public void viewNewOne() {
 		super.viewNewOne();
 		getSessionModel().getModel().setRun(run);
-		loadPlateElms();
+		getSessionModel().getModel().setPlateType(run.getStudy().getStudyType().getPlateType());
+		//defaultLoadPlateElms();
+		getPlateElms(run.getStudy().getStudyType().getPlateType().getName());
 	}
-	
+
 	@PostConstruct
 	public void init() {
+		//defaultLoadPlateElms();
+		//setPlatetypes(plateTypeSvc.getAll());
 		
-		loadPlateElms();
+
 	}
 	
-	public void loadPlateElms() {
-		rows = new LinkedHashMap<>();
+	public void defaultLoadPlateElms() {
+		//rows = new LinkedHashMap<>();
 		rows.put("1", "A");
 		rows.put("2", "B");
 		rows.put("3", "C");
@@ -188,7 +217,7 @@ public class PlateForm extends AbstractMaintenanceForm<String, Plate> {
 		rows.put("7", "G");
 		rows.put("8", "H");
 
-		cols = new LinkedHashMap<>();
+		//cols = new LinkedHashMap<>();
 		cols.put("1", "1");
 		cols.put("2", "2");
 		cols.put("3", "3");
@@ -202,18 +231,51 @@ public class PlateForm extends AbstractMaintenanceForm<String, Plate> {
 		cols.put("11", "11");
 		cols.put("12", "12");
 
-		vals = new HashMap<>();
+		//vals = new HashMap<>();
 		for (String col : cols.keySet()) {
 			vals.put(col, new HashMap<String, Boolean>());
 		}
+		
+		getSessionModel().getModel().setRows(rows);
+		getSessionModel().getModel().setCols(cols);
+		getSessionModel().getModel().setVals(vals);
 
 	}
+	
+	public void getPlateElms(String pType)
+	{
+		
+		rows.clear();
+		cols.clear();
+		String alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		int rowLength=Integer.parseInt(pType.substring(0, 1));
+		int colLength=Integer.parseInt(pType.substring(2));
+		for(int i=0 ; i< rowLength; i++)
+		{
+			rows.put(String.valueOf(i+1), alphabet.substring(i,i+1));
+		}
+		
+		for(int j=0 ;j<colLength;j++)
+		{
+			cols.put(String.valueOf(j+1), String.valueOf(j+1));
+		}
+		
+		
+		vals.clear();
+		for (String col : cols.keySet()) {
+			vals.put(col, new HashMap<String, Boolean>());
+		}
+		
+		getSessionModel().getModel().setRows(rows);
+		getSessionModel().getModel().setCols(cols);
+		getSessionModel().getModel().setVals(vals);
+	}
+	
 
 	@Override
 	public String save() {
 		List<PlateElement> pElmntList = new ArrayList<PlateElement>();  
-				
-		Iterator<Map.Entry<String, Map<String, Boolean>>> eItr = getVals().entrySet().iterator();
+		Iterator<Map.Entry<String, Map<String, Boolean>>> eItr = getSessionModel().getModel().getVals().entrySet().iterator();
 		while (eItr.hasNext()) {
 			Map.Entry<String, Map<String, Boolean>> entry = eItr.next();
 			String col = entry.getKey();
@@ -235,6 +297,7 @@ public class PlateForm extends AbstractMaintenanceForm<String, Plate> {
 			}
 
 		}
+		//System.out.println("pElmntList***"+pElmntList);
 		getSessionModel().getModel().setPlateElmns(pElmntList);
 		plateSvc.update(getSessionModel().getModel());
 		PlateVersion plateVer = new PlateVersion();
@@ -249,8 +312,17 @@ public class PlateForm extends AbstractMaintenanceForm<String, Plate> {
 	@Override
 	public void viewOne(Plate plate) {
 		super.viewOne(plate);
-		vals=new HashMap<>();
-		Map<String,Boolean> historyData;
+		//System.out.println("plates***"+plate);
+		
+		//if plate types exists in plate then use this
+		//platetypes.clear();
+		//platetypes.add(plate.getPlateType());
+	
+		
+		getPlateElms(plate.getPlateType().getName());
+		valLst.clear();
+     	
+     	Map<String,Boolean> historyData;
 		Map<String,Map<String,Boolean>> historyMap = new HashMap<>();
 		Map<String,Boolean> data;
 		for (PlateElement pElm : plate.getPlateElmns()) {
@@ -267,7 +339,7 @@ public class PlateForm extends AbstractMaintenanceForm<String, Plate> {
 			}
 		}
 		plateVersns = plateVersionSvc.findByPlateId(plate.getId());
-		valLst= new ArrayList<Map<String,Map<String,Boolean>>>();
+		//valLst= new ArrayList<Map<String,Map<String,Boolean>>>();
 		for(PlateVersion pVer:plateVersns)
 		{
 			try {
@@ -292,6 +364,7 @@ public class PlateForm extends AbstractMaintenanceForm<String, Plate> {
 
 					}
 				}
+				
 				valLst.add(historyMap);
 				historyMap = new HashMap<>();
 			} catch (org.json.JSONException e) {
@@ -301,7 +374,24 @@ public class PlateForm extends AbstractMaintenanceForm<String, Plate> {
 			
 		}
 		
+		getSessionModel().getModel().setValLst(valLst);
+		getSessionModel().getModel().setVals(vals);
 		
+	}
+	
+	
+	
+	/*public void valueChangeMethod(ValueChangeEvent e){
+		SelectOneMenu selectMenu = (SelectOneMenu) e.getSource();
+		PlateType pT=(PlateType)selectMenu.getValue();
+		getPlateElms(pT.getName());
+	}*/
+	
+	public void calculate()
+	{
+		ICalculatePlugin cal=PluginFactory.getCalculatePlugin();
+		int res=cal.cal(run.getStudy().getStudyType().getAlgorithm());
+		System.out.println("result***"+res);
 	}
 	
 }

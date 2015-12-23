@@ -61,6 +61,10 @@
 	<welcome-file-list>
 		<welcome-file>templates/ronin/index.xhtml</welcome-file>
 	</welcome-file-list>
+	
+	<!-- <welcome-file-list>
+		<welcome-file>index.xhtml</welcome-file>
+	</welcome-file-list> -->
 
 	<mime-mapping>
 		<extension>eot</extension>

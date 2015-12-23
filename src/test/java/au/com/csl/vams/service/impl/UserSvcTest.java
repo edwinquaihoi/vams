@@ -32,6 +32,6 @@ public class UserSvcTest extends ServiceTests {
 
 	}
 
-	@Test
+	//@Test
 	public void test() {}
 }

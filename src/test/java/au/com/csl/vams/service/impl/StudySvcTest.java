@@ -21,6 +21,7 @@ import au.com.csl.vams.service.IStudyTypeSvc;
 import au.com.csl.vams.service.ServiceTests;
 
 
+
 public class StudySvcTest extends ServiceTests {
 	
 	@EJB(name="StudySvcLocal")

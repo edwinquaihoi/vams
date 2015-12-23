@@ -33,11 +33,12 @@
 
                 <ui:include src="layoutmenu.xhtml" />
 
-			    <p:growl id="growl" showDetail="true" autoUpdate="true" closable="true" life="3000"/>
+			    <p:growl id="growl" showDetail="true"   autoUpdate="true" closable="true" life="3000"/>
+			    
 
                 <div id="layout-portlets-cover">
                     <div class="Flex">
-                        <div class="FlexRow ui-lesscurve">
+                        <div> <!-- <div class="FlexRow ui-lesscurve"> -->
 							<h:panelGroup layout="block" id="mainContent">
 								<ui:insert name="content">
 									<ui:include src="#{sessionModel.content}" />

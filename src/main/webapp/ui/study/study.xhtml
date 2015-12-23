@@ -4,43 +4,65 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 	<h:form id="form">
-	<div class="Container100">
 
-		<div class="TexAlLeft">
-			   <h2 class="BigTopic" style="padding-bottom: 0px">
-					Study
-				</h2>
-				<h:panelGrid columns="2" cellpadding="5" id="addStudyPanel">
-					<p:outputLabel value="Name *" />
-					<p:outputPanel>
-						<p:inputText required="true" style="width:160px"
-							value="#{studyForm.sessionModel.model.name}">
-						</p:inputText>
-					</p:outputPanel>
-					<p:outputLabel   value="Study Type: *" />
-					<p:outputPanel>
-						<p:selectOneMenu id="studyType"  value="#{studyForm.sessionModel.model.studyType}" converter="omnifaces.SelectItemsIndexConverter" disabled="#{studyForm.sessionModel.editMode}" style="width:125px" required="true" >
-							<f:selectItem itemLabel="Select One" itemValue="#{null}"  />
-							<f:selectItems value="#{studyForm.studytypes}" var="studyType" itemLabel="#{studyType.name}"  itemValue="#{studyType}" />
-						</p:selectOneMenu>
-					</p:outputPanel>
-					<div class="Container50 TexAlCenter">
-						<p:outputPanel styleClass="studybutton">
-							<p:commandButton value="Save" action="#{studyForm.save()}"
-								ajax="true" update="form, growl,btnRun"
-								rendered="#{studyForm.sessionModel.newMode}"/>
-								<p:commandButton value="Update" action="#{studyForm.save()}"
-								ajax="true" update="form, growl"
-								rendered="#{studyForm.sessionModel.editMode}" />
-								<p:commandButton id="btnRun" value="Add Run" action="#{runForm.viewNewOne}" 
-								ajax="true" update="mainContent,form"  disabled="#{!studyForm.isDisable()}">
+		<div class="Container100 ui-fluid">
+			<div class="ContainerIndent">
+				<div class="ShadowBox whiteback RedBorderedBox">
+					<div class="TexAlLeft">
+						<h2 class="BigTopic" style="padding-bottom: 0px">Study</h2>
+						<h:panelGrid columns="2" cellpadding="5" id="addStudyPanel">
+							<p:outputLabel value="Name *" />
+							<p:outputPanel>
+								<p:inputText required="true" label="Name" style="width:163px"
+									value="#{studyForm.sessionModel.model.name}">
+								</p:inputText>
+							</p:outputPanel>
+							<p:outputLabel value="Study Type: *" />
+							<p:outputPanel>
+								<p:selectOneMenu id="studyTypenew"
+									value="#{studyForm.sessionModel.model.studyType}"
+									converter="omnifaces.SelectItemsIndexConverter"
+									rendered="#{studyTypeForm.sessionModel.newMode}"
+									style="width:125px" required="true" label="Study Type">
+									<f:selectItem itemLabel="Select One" itemValue="#{null}" />
+									<f:selectItems value="#{studyForm.studytypes}" var="studyType"
+										itemLabel="#{studyType.name}" itemValue="#{studyType}" />
+								</p:selectOneMenu>
+
+								<p:selectOneMenu id="studyTypeedit"
+									value="#{studyForm.sessionModel.model.studyType}"
+									converter="omnifaces.SelectItemsIndexConverter"
+									rendered="#{studyTypeForm.sessionModel.editMode}"
+									disabled="#{studyForm.sessionModel.editMode}"
+									style="width:125px" required="true" label="Study Type">
+									<f:selectItems value="#{studyForm.studytypes}" var="studyType"
+										itemLabel="#{studyType.name}" itemValue="#{studyType}" />
+								</p:selectOneMenu>
+
+							</p:outputPanel>
+							<div class="Container50 TexAlCenter">
+								<p:outputPanel styleClass="studybutton">
+									<p:commandButton value="Save" action="#{studyForm.save()}"
+										ajax="true" update="form, growl"
+										rendered="#{studyForm.sessionModel.newMode}" />
+									<p:commandButton value="Update" action="#{studyForm.save()}"
+										ajax="true" update="form, growl"
+										rendered="#{studyForm.sessionModel.editMode}" />
+									<!-- <p:commandButton id="btnRun" value="Add Run" action="#{studyForm.saveRun}" 
+								ajax="true" update="mainContent,form"  >
 								 <f:setPropertyActionListener target="#{runForm.study}" value="#{studyForm.sessionModel.model}" />
-								</p:commandButton>
-								
-						</p:outputPanel>
-					</div>
-				</h:panelGrid>
-				<h2 class="BigTopic" style="padding-bottom: 0px">
+								</p:commandButton> -->
+									<p:commandButton id="btnRun" value="Add Run"
+										styleClass="runbutton white" icon="fa fa-plus"
+										action="#{studyForm.saveRun}" ajax="true" update="form, growl">
+										<f:setPropertyActionListener target="#{runForm.study}"
+											value="#{studyForm.sessionModel.model}" />
+									</p:commandButton>
+
+								</p:outputPanel>
+							</div>
+						</h:panelGrid>
+						<!-- <h2 class="BigTopic" style="padding-bottom: 0px">
 					Runs
 				</h2>
 				<div class="Container100 Responsive100"
@@ -71,9 +93,178 @@
 						</p:column>
 
 					</p:dataTable>
-				</div>
+				</div> -->
 
+
+
+						<!-- <p:treeTable value="#{studyForm.root}" var="study" style="margin-top:0" scrollable="true" scrollHeight="150">
+					<p:column>
+						<h:outputText value="#{study.run.id}" />
+					</p:column>
+					<p:column>
+							<p:commandLink id="viewRun" update="form,growl"
+								actionListener="#{runForm.viewOne(run)}">
+								<h:outputText value="Run" />
+							</p:commandLink>
+						</p:column>
+				</p:treeTable>
+ -->
+
+						<!-- 	<p:tree value="#{studyForm.root}" var="node"    style="width:27%">
+				<p:ajax event="select" update="form" listener="#{studyForm.displaySelectedSingle}" />
+					<p:treeNode id="treeNode">
+						<h:outputText value="Run Id: #{node.name}, "  />
+						<h:outputText value="Run Id: #{node.run.id}, "  />
+						<h:outputText value="Plates: #{node.run.plates.size()}"  />
+						<p:commandLink id="viewRun" update="form,growl"
+								actionListener="#{runForm.viewOne(node.run)}">
+								<h:outputText value="Run" />
+						</p:commandLink>
+						
+					</p:treeNode>
+					
+				</p:tree> -->
+
+
+
+						<div class="EmptyBox5"></div>
+						<!-- <p:commandButton value="Display"  update="form, growl" actionListener="#{studyForm.displaySelectedSingle}" rendered="#{studyForm.sessionModel.editMode}"/> -->
+
+
+
+					</div>
+
+					<!-- <div class="Container100">
+				<p:tree value="#{studyForm.root}" var="node" dynamic="true"  animate="true" selectionMode="single" selection="#{studyForm.selectedNode}" rendered="#{studyForm.sessionModel.editMode}"  style="width: 100%;">
+				<p:ajax event="select" update="form, growl" listener="#{studyForm.onNodeSelect}" />
+					<p:treeNode >
+						<p:commandLink  update="form, growl" actionListener="#{studyForm.displaySelectedSingle}" rendered="#{studyForm.sessionModel.editMode}">
+							<h:outputText value="#{node}" />
+						</p:commandLink>
+					</p:treeNode>
+					
+				</p:tree>
+			</div> -->
+
+
+
+
+					<!-- <p:accordionPanel activeIndex="null">
+				<p:tab>
+				
+				
+				<f:facet name="title">
+					<div class="Container100">
+					
+					<div class="Container90">
+						<h:outputText value="Runs" class="Fs21" />
+					</div>
+						
+					<div class="Container10">
+						<p:commandButton    icon="fa fa-plus" style="padding:0px; margin-top:-3px!important;" id="addplate" value= "Add Run" styleClass="RaisedButton GrayButton BoldGray" action="#{studyForm.saveRun}"  ajax="true" update="form, growl"   >
+							 <f:setPropertyActionListener target="#{runForm.study}" value="#{studyForm.sessionModel.model}" />
+						</p:commandButton>
+					</div>
+						
+						
+					</div>
+					<div class="EmptyBox5" />
+				</f:facet> -->
+
+					<div class="ContainerIndent"
+						style="padding-top: 0px; padding-right: 0px;">
+						<div class="runs">
+							<p:accordionPanel dynamic="true"
+								styleClass="auditaccordion black"
+								value="#{studyForm.sessionModel.model.runs}" var="run"
+								activeIndex="null"
+								rendered="#{studyForm.sessionModel.model.runs.size() >= 1 ? 'true' : 'false'}">
+								<p:tab title="Run">
+
+									<f:facet name="title">
+										<div class="Container100 Responsive100">
+
+											<div class="Container50">
+												<!-- <p:graphicImage library="ronin-layout"  name="images/run.jpg" styleClass="fsiconitem" style="width:5%;"/> -->
+												<p:graphicImage library="custom" name="images/test.png"
+													styleClass="fsiconitem" />
+												<h:outputText value="RUN #{run.id}" class="Fs21"
+													style="margin-left: 40px;" />
+											</div>
+											<div class="Container30">
+												<h:outputText value="CREATED ON: #{run.formattedCreateDate}"
+													class="Fs18" style="margin-left: 40px;">
+													<!-- <f:convertDateTime pattern="dd-MMM-yy HH:mm"></f:convertDateTime> -->
+												</h:outputText>
+											</div>
+											
+											<div class="Container10">
+												<p:commandButton icon="fa fa-plus"
+													style="padding:0px; margin-top:-3px!important;"
+													id="calplate" value="Calculate"
+													styleClass="RaisedButton GrayButton BoldGray"
+													action="#{plateForm.calculate}" ajax="true"
+													update="form, growl">
+													<f:setPropertyActionListener target="#{plateForm.run}" value="#{run}" />
+												</p:commandButton>
+											</div>
+
+											<div class="Container10">
+												<p:commandButton icon="fa fa-plus"
+													style="padding:0px; margin-top:-3px!important;"
+													id="addplate" value="Add Plate"
+													styleClass="RaisedButton GrayButton BoldGray"
+													action="#{plateForm.viewNewOne}" ajax="true"
+													update="form, growl">
+													<f:setPropertyActionListener target="#{plateForm.run}"
+														value="#{run}" />
+												</p:commandButton>
+											</div>
+
+										</div>
+										<div class="EmptyBox5" />
+									</f:facet>
+
+									<div class="ContainerIndent"
+										style="padding-top: 0px; padding-right: 0px;">
+										<div class="Container100 Responsive100 TexAlLeft">
+											<p:dataScroller value="#{run.plates}" var="plate"
+												chunkSize="10" rendered="#{run.plates.size() != 0}">
+												<h:panelGrid columns="2" cellpadding="5"
+													styleClass="ui-panelgrid-blank">
+													<p:graphicImage library="custom"
+														name="images/science50.png" />
+													<p:outputPanel>
+														<h:panelGrid columns="2" cellpadding="5">
+
+															<h:outputText value="Plate: " />
+															<p:commandLink action="#{plateForm.viewOne(plate)}"
+																ajax="true" update="form, growl">
+																<h:outputText value="#{plate.id}" />
+															</p:commandLink>
+															<h:outputText value="Name: " />
+															<h:outputText value="#{plate.name}" />
+
+
+														</h:panelGrid>
+													</p:outputPanel>
+													<div class="Wid100" style="align: right">
+														<!-- <p:commandButton value="View" icon="fa fa-chevron-right whitef" process="@this" styleClass="RaisedButton White Fs18" update="form, growl"
+														action="#{plateForm.viewOne(plate)}" ajax="true"  style="margin-right:-8px!important;"/>  -->
+													</div>
+												</h:panelGrid>
+											</p:dataScroller>
+										</div>
+									</div>
+								</p:tab>
+							</p:accordionPanel>
+						</div>
+					</div>
+
+					<!-- 	</p:tab>
+			</p:accordionPanel>  -->
+				</div>
 			</div>
-	</div>
+		</div>
 	</h:form>
 </ui:composition>

@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="form">
+		<div class="Container100 ui-fluid">
+			<div class="ContainerIndent">
+				<div class="ShadowBox whiteback RedBorderedBox">
+					<div class="TexAlLeft">
+						<h2 class="BigTopic" style="padding-bottom: 0px">Study Types
+						</h2>
+
+						<h:panelGrid columns="2" cellpadding="5">
+							<p:outputLabel value="Name:" />
+							<p:outputPanel>
+								<p:inputText style="width:160px" value="#{studyTypeForm.name}">
+								</p:inputText>
+							</p:outputPanel>
+							<p:outputLabel value="Algorithm:" />
+							<p:outputPanel>
+								<p:inputText style="width:160px"
+									value="#{studyTypeForm.algtype}">
+								</p:inputText>
+							</p:outputPanel>
+							<p:outputLabel value="Plate Type:" />
+							<p:outputPanel>
+								<p:inputText style="width:160px"
+									value="#{studyTypeForm.platetype}">
+								</p:inputText>
+							</p:outputPanel>
+							<div class="Container50 TexAlCenter">
+								<p:outputPanel styleClass="srchbutton">
+									<p:commandButton value="Search"
+										action="#{studyTypeForm.searchByIDOrName()}" ajax="true"
+										update="form,studytypedata,growl" process="@form" />
+									<p:commandButton value="New" styleClass="newButton"
+										action="#{studyTypeForm.viewNewOne}" ajax="true"
+										update="form,growl" />
+								</p:outputPanel>
+							</div>
+						</h:panelGrid>
+
+						<div class="Container100 Responsive100"
+							style="background: transparent">
+							<p:dataTable id="studytypedata" var="studytype"
+								widgetVar="studytypeTable"
+								emptyMessage="No study type found with given criteria"
+								filteredValue="#{studyTypeForm.filteredStudytypes}"
+								value="#{studyTypeForm.sessionModel.results}" rows="5"
+								selectionMode="single"
+								selection="#{studyTypeForm.selectedStudyType}"
+								rowKey="#{studytype.id}" paginator="true"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15" reflow="true"
+								styleClass="graypanel Fs20">
+
+								<f:facet name="header">
+									<p:outputPanel>
+										<h:outputText value="Search all fields:" />
+										<p:inputText id="globalFilter"
+											onkeyup="PF('studytypeTable').filter()" style="width:150px"
+											placeholder="Enter keyword" />
+									</p:outputPanel>
+								</f:facet>
+								<p:ajax event="rowSelect"
+									listener="#{studyTypeForm.onRowSelect}" update="form,growl" />
+								<p:column filterBy="#{studytype.name}" headerText="Name"
+									footerText="contains" filterMatchMode="contains">
+									<h:outputText value="#{studytype.name}" />
+								</p:column>
+								<p:column headerText="Algorithm"
+									filterBy="#{studytype.algorithm.name}" footerText="contains"
+									filterMatchMode="contains">
+									<h:outputText value="#{studytype.algorithm.name}" />
+								</p:column>
+								<p:column headerText="Plate Type"
+									filterBy="#{studytype.plateType.name}" footerText="contains"
+									filterMatchMode="contains">
+									<h:outputText value="#{studytype.plateType.name}" />
+								</p:column>
+							</p:dataTable>
+						</div>
+						<div class="Container50 TexAlCenter"></div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</h:form>
+</ui:composition>

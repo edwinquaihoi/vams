@@ -20,7 +20,27 @@ public class PlateTypeForm extends AbstractMaintenanceForm<String, PlateType> {
 	
 	@EJB
 	private IPlateTypeSvc plateTypeSvc;
-		
+	
+	private String rows;
+	
+	private String cols;
+				
+	public String getRows() {
+		return rows;
+	}
+
+	public void setRows(String rows) {
+		this.rows = rows;
+	}
+
+	public String getCols() {
+		return cols;
+	}
+
+	public void setCols(String cols) {
+		this.cols = cols;
+	}
+
 	public IPlateTypeSvc getPlateTypeSvc() {
 		return plateTypeSvc;
 	}
@@ -51,5 +71,13 @@ public class PlateTypeForm extends AbstractMaintenanceForm<String, PlateType> {
 		return plateTypeSvc;
 	}
 
-	
+	@Override
+	public String save()
+	{
+		getSessionModel().getModel().setName(rows+"*"+cols);
+		plateTypeSvc.create(getSessionModel().getModel());
+		viewOne(getSessionModel().getModel());
+		return null;
+		
+	}
 }

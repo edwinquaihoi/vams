@@ -419,3 +419,49 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 .Container:after {
     clear: both; 
 }
+
+
+.plate .ui-button-text {
+    font-size: 14px;
+    font-family: "dosismedium";
+    color: #F1F6F9;
+    text-shadow: none;
+    position: relative;
+    z-index: 100;
+    border: 1px solid transparent;
+    border-radius: 30px !important;
+    background-color: Orange !important;
+    transition: all 0.3s ease 0s;
+}
+
+.plate .ui-button.ui-state-active .ui-button-text {
+    background-color: green !important;
+}
+
+
+/* .platetable .ui-datatable .ui-datatable-header, .ui-datatable .ui-datatable-footer {
+    text-align: left !important;
+}
+
+.platetable .ui-datatable .ui-datagrid-header, .ui-datatable .ui-datatable-header, .ui-datatable .ui-datatable-subtable-header, .ui-datatable .ui-datatable-summaryrow {
+    color: #003D50;
+    background-color: transparent !important;
+    margin: -4px -4px 0px;
+    border-radius: 2px !important;
+    font-size: 20px;
+    padding: 8px 5px !important;
+    border-bottom: none !important;
+} */
+
+.runs .ui-accordion .ui-tabs-outline {
+    color: white !important;
+}
+
+.runs .ui-accordion .ui-state-hover, .ui-accordion .ui-state-active {
+    background-color: grey  important;
+    color: #A7CFDB;
+}
+
+.back .ui-commandlink {
+    color: #003D50 !important;
+}

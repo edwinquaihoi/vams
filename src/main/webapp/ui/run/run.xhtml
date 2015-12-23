@@ -7,9 +7,19 @@
 	<div class="Container100">
 
 		<div class="TexAlLeft">
-		<h2 class="BigTopic" style="padding-bottom: 0px">
-			Run
-		</h2>
+
+				<div class="Container100">
+					<div class="Container90">
+						<h2 class="BigTopic" style="padding-bottom: 0px">Run</h2>
+					</div>
+
+					<div class="Container10" align="right">
+						<p:commandButton process="@this" icon="ui-icon-arrow-1-w"
+							action="#{runForm.goBack}" ajax="true" update="form, growl" />
+					</div>
+				</div>
+
+			<div class="Container100">
 		
 			<h:panelGrid columns="2">
 					<p:outputLabel value="Study Name *" />
@@ -42,6 +52,7 @@
 						</p:outputPanel>
 					</div>
 				</h:panelGrid>
+				</div>
 				
 				<h2 class="BigTopic" style="padding-bottom: 0px">
 					Plates

@@ -56,8 +56,8 @@ public class RunDaoTest extends RelationalTests{
 		//System.out.println("latest1"+runLst1);
 		//assertEquals("study1",runLst.get(0).getStudy().getStudyName());
 		
-		List<Run> runLst= dao.findByIdContainingAndStudyNameContaining("2", "null");
-		//System.out.println("latest"+runLst);
+		//List<Run> runLst= dao.findByIdContainingAndStudyNameContaining("2", "null");
+		System.out.println("latest"+dao.findAll());
 		
 		
 	}

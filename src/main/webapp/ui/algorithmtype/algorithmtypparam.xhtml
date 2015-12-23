@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="form">
+		<div class="Container100 ui-fluid">
+			<div class="ContainerIndent">
+				<div class="ShadowBox whiteback RedBorderedBox">
+					<div class="TexAlLeft">
+						<h2 class="BigTopic" style="padding-bottom: 0px">Algorithm Type Parameter</h2>
+						<h:panelGrid columns="2" cellpadding="5">
+							<p:outputLabel value="Name: *" />
+							<p:outputPanel>
+								<p:inputText required="true" style="width:163px"
+									value="#{algTypeForm.algtypeparam.name}">
+								</p:inputText>
+							</p:outputPanel>
+							<p:outputLabel value="Description: " />
+							<p:outputPanel>
+								<p:inputText required="true" style="width:163px"
+									value="#{algTypeForm.algtypeparam.description}">
+								</p:inputText>
+							</p:outputPanel>
+							<div class="Container50 TexAlCenter">
+								<p:outputPanel styleClass="algbutton">
+									<p:commandButton value="Add"  ajax="true"  update="form,form:params"  action="#{algTypeForm.addParam}" >
+								
+									 </p:commandButton>
+								</p:outputPanel>
+							</div>
+						</h:panelGrid>
+					</div>
+			</div>
+		</div>
+	</div>
+	</h:form>
+</ui:composition>

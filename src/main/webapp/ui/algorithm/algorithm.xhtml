@@ -4,26 +4,113 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 	<h:form id="form">
-	<div class="Container100">
+		<div class="Container100 ui-fluid">
+			<div class="ContainerIndent">
+				<div class="ShadowBox whiteback RedBorderedBox">
+					<div class="TexAlLeft">
+						<h2 class="BigTopic" style="padding-bottom: 0px">Algorithm</h2>
+						<p:messages />
+						<h:panelGrid columns="2" cellpadding="5" id="algPanel" columnClasses="label, value">
+							<p:outputLabel value="Name: *" />
+							<p:outputPanel>
+								<p:inputText id="algName" required="true" style="width:163px" value="#{algForm.sessionModel.model.name}" label="Name">
+								</p:inputText>
+							</p:outputPanel>
+							<p:outputLabel value="Algorithm Type: *" />
+							<p:outputPanel>
+								<p:selectOneMenu id="AlgTypeNew" value="#{algForm.sessionModel.model.algType}" converter="omnifaces.SelectItemsIndexConverter"  rendered="#{studyTypeForm.sessionModel.newMode}"  style="width:125px" required="true" label="Algorithm Type">
+									<p:ajax listener="#{algForm.onTypeChange}" update="parametersTable" />
+									<f:selectItem itemLabel="Select One" itemValue="#{null}" />
+									<f:selectItems value="#{algForm.algTypes}" var="algType" itemLabel="#{algType.name}" itemValue="#{algType}" />
+								</p:selectOneMenu>
+								<p:selectOneMenu id="AlgTypeEdit" value="#{algForm.sessionModel.model.algType}" converter="omnifaces.SelectItemsIndexConverter" rendered="#{studyTypeForm.sessionModel.editMode}" disabled="#{studyTypeForm.sessionModel.editMode}" style="width:125px" required="true">
+									<p:ajax listener="#{algForm.onTypeChange}" update="parametersTable" />
+									<f:selectItems value="#{algForm.algTypes}" var="algType" itemLabel="#{algType.name}" itemValue="#{algType}" />
+								</p:selectOneMenu>
+							</p:outputPanel>
+							<div class="Container50 TexAlCenter">
+								<p:outputPanel styleClass="savebutton">
+									<p:commandButton value="Save" action="#{algForm.saveAlg()}"
+										ajax="true" update="form, growl"
+										rendered="#{algForm.sessionModel.newMode}" />
+										
+								<p:commandButton value="Update" action="#{algForm.saveAlg()}"
+										ajax="true" update="form, growl"
+										rendered="#{algForm.sessionModel.editMode}" />
+								<p:commandButton  value="Parameter" icon="fa fa-plus" styleClass="parametersbutton white" onclick="PF('dlg').show()"     />
+								</p:outputPanel>
+							</div>
+						</h:panelGrid>
+					
+				<p:outputPanel id="dialog" >
+				<p:dialog header="Algorithm Parameter" modal="true"  widgetVar="dlg" resizable="false" responsive="true" >
+				
+						<div class="TexAlLeft">
+			       			 <p:panelGrid columns="2" cellpadding="5" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-10">
+					            <h:outputLabel value="Name: *" for="txt_name"   />
+					            <p:inputText id="txt_name"  value="#{algForm.algParam.name}"  label="Parameter Name"  />
+					            
+					            <h:outputLabel value="Type: *" for="txt_type" />
+					            <p:inputText id="txt_type"  value="#{algForm.algParam.type}"  label="Parameter Type" />
+					 
+					            <h:outputLabel value="Value: *" for="txt_val"/>
+					            <p:inputText id="txt_val" value="#{algForm.algParam.value}"   label="Parameter Value" />
+					 
+					           <f:facet name="footer">
+					           <p:commandButton id="btn_reset" value="Reset" type="reset"  />
+					                <p:commandButton value="Add"  id="btn_add" update="form, growl" action="#{algForm.reinit}" onsuccess="PF('dlg').hide()" >
+					                  <p:collector value="#{algForm.algParam}" addTo="#{algForm.sessionModel.model.parameters}"  unique="true" />
+					                </p:commandButton>
+					            </f:facet>  
+			        		</p:panelGrid>
+			 			</div>
+			 			
+			 	</p:dialog>
+			 	</p:outputPanel>
+			 
+			 
+			
+			 
+			 <p:outputPanel id="parameters">
+					<p:dataTable value="#{algForm.sessionModel.model.parameters}" var="algParam" id="parametersTable" editable="true" editMode="cell" rendered="#{algForm.sessionModel.model.parameters.size() >= 1 ? 'true' : 'false'}" binding="#{algForm.myTable}" >
 
-		<div class="TexAlLeft">
-		<h2 class="BigTopic" style="padding-bottom: 0px">Algorithm</h2>
-				<h:panelGrid columns="2" cellpadding="5" id="algPanel">
-					<p:outputLabel value="Name *" />
-					<p:outputPanel>
-						<p:inputText id="algName" required="true" 
-							value="#{algForm.sessionModel.model.name}">
-						</p:inputText>
-					</p:outputPanel>
-					<div class="Container50 TexAlCenter">
-						<p:outputPanel styleClass="savebutton">
-							<p:commandButton value="Save" action="#{algForm.save()}"
-								ajax="true" update="form, growl"
-								rendered="#{algForm.sessionModel.newMode}" />
-						</p:outputPanel>
+						<p:column headerText="Name">
+							<h:outputText value="#{algParam.name}" />
+						</p:column>
+
+					<!-- 	<p:column headerText="Value">
+							<f:facet name="header">
+								<h:outputText value="Value" />
+							</f:facet>
+							<h:outputText value="#{algParam.value}" />
+						</p:column> -->
+						
+						<p:column headerText="Type">
+							<h:outputText value="#{algParam.type}" />
+						</p:column>
+						
+						<p:column headerText="Value">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{algParam.value}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText id="modelInput" value="#{algParam.value}" style="width:96%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+
+						<p:column headerText="Action">
+							<p:commandLink value="Remove" update=":form:parameters" process=":form:parameters">
+								<p:collector value="#{algParam}" removeFrom="#{algForm.sessionModel.model.parameters}" unique="true" />
+							</p:commandLink>
+						</p:column>
+
+					</p:dataTable>
+				</p:outputPanel>
 					</div>
-				</h:panelGrid>
+				</div>
 			</div>
-	</div>
+		</div>
 	</h:form>
 </ui:composition>

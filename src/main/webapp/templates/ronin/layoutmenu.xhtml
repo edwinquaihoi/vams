@@ -13,11 +13,16 @@
         <pr:menu>
         	<p:menuitem id="rm_dashboard" value="Dashboard" icon="fa fa-dashboard" ajax="true" action="#{navigationBean.dashboard}" update="mainContent,form"/>
         	<p:menuitem id="rm_appuser" value="Application User" icon="fa fa-user" action="#{appUserForm.viewNewOne}" ajax="true"  update="mainContent,form"/>
-        	<p:menuitem id="rm_algrthm" value="Algorithm"  action="#{algForm.viewNewOne}" ajax="true"  update="mainContent,form"/>
-        	<p:menuitem id="rm_platetype" value="Plate Type"  action="#{plateTypForm.viewNewOne}" ajax="true"  update="mainContent,form"/>
-        	<p:menuitem id="rm_studytype" value="Study Type"  action="#{studyTypeForm.viewNewOne}" ajax="true"  update="mainContent,form"/>
-        	<p:menuitem id="rm_study" value="Study"  action="#{studyForm.viewNewOne}" ajax="true"  update="mainContent,form"/>
-        	<p:menuitem id="rm_studies" value="Studies"  action="#{studyForm.viewList}" ajax="true"  update="mainContent,form"/>
+        	<!-- <p:menuitem id="rm_algtype" value="Algorithm Type"  action="#{algTypeForm.viewNewOne}" ajax="true"  icon="fa fa-puzzle-piece" update="mainContent,form"/> -->
+        	<p:menuitem id="rm_algtypes" value="Algorithm Types"  action="#{algTypeForm.viewList}" icon="fa fa-puzzle-piece"  ajax="true"  update="mainContent,form"/>
+        	<p:menuitem id="rm_algrthms" value="Algorithms"  action="#{algForm.viewList}" icon="fa fa-connectdevelop"   ajax="true"  update="mainContent,form"/>
+        	<!-- <p:menuitem id="rm_algrthm" value="Algorithm"  action="#{algForm.viewNewOne}" ajax="true"  icon="fa fa-connectdevelop" update="mainContent,form" /> -->
+        	<p:menuitem id="rm_platetype" value="Plate Type"  action="#{plateTypForm.viewNewOne}" ajax="true" icon="fa fa-th"  update="mainContent,form"/>
+        	<p:menuitem id="rm_studytypes" value="Study Types"  action="#{studyTypeForm.viewList}" icon="fa fa-tasks" ajax="true"  update="mainContent,form"/>
+        	<!-- <p:menuitem id="rm_study" value="Study"  action="#{studyForm.viewNewOne}" ajax="true"  icon="fa fa-flask" update="mainContent,form"/> -->
+        	<p:menuitem id="rm_studies" value="Studies"  action="#{studyForm.viewList}" ajax="true" icon="fa fa-flask" update="mainContent,form"/>
+        	<!-- <p:menuitem id="rm_run" value="Run"  action="#{runForm.viewNewOne}" ajax="true"  update="mainContent,form"/> -->
+        	
         	
         	
         	<!-- 

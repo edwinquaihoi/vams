@@ -3,82 +3,142 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
+
 	<h:form id="form">
-	<div class="Container100">
-		<div class="TexAlLeft">
-			<h2 class="BigTopic" style="padding-bottom: 0px">
-					Plate
-			</h2>
-			<h:panelGrid columns="2">
-				<p:outputLabel value="Study Name" />
-				<p:outputPanel>
-					<p:inputText style="width:56%;margin-right:5px;"
-						value="#{plateForm.sessionModel.model.run.study.name}">
-					</p:inputText>
-				</p:outputPanel>
-				<!-- <p:outputLabel value="Study Id" />
+		<div class="Container100 ui-fluid">
+			<div class="ContainerIndent">
+				<div class="ShadowBox whiteback RedBorderedBox">
+					<div class="TexAlLeft">
+						<div class="Container100">
+							<div class="Container90">
+								<h2 class="BigTopic" style="padding-bottom: 0px">Plate</h2>
+							</div>
+
+							<div class="back" align="right">
+								<p:commandLink id="bckButton" action="#{plateForm.goBack}"
+									ajax="true" update="form">
+									<h:outputText value="Back" style="color: #003D50;"></h:outputText>
+								</p:commandLink>
+							</div>
+						</div>
+						<div class="Container100">
+							<h:panelGrid columns="2" cellpadding="5">
+								<p:outputLabel value="Study Name: " />
+								<p:outputPanel>
+									<p:inputText style="width:163px"
+										value="#{plateForm.sessionModel.model.run.study.name}">
+									</p:inputText>
+								</p:outputPanel>
+								<!-- <p:outputLabel value="Study Id" />
 				<p:outputPanel>
 					<p:inputText style="width:56%;margin-right:5px;"
 						value="#{plateForm.sessionModel.model.run.study.id}">
 					</p:inputText>
 				</p:outputPanel> -->
-				<p:outputLabel value="Run Id" />
-				<p:outputPanel>
-					<p:inputText style="width:56%;margin-right:5px;"
-						value="#{plateForm.sessionModel.model.run.id}">
-					</p:inputText>
-				</p:outputPanel>
-				<p:outputLabel value="Plate Name" />
-				<p:outputPanel>
-					<p:inputText style="width:56%;margin-right:5px;"
-						value="#{plateForm.sessionModel.model.name}">
-					</p:inputText>
-				</p:outputPanel>
-			</h:panelGrid>
-			<div class="EmptyBox10"></div>
-				<p:tabView>
-					<p:tab title="Menu">
-						<h:panelGrid columns="2" cellpadding="10">
+								<p:outputLabel value="Run Id: " />
+								<p:outputPanel>
+									<p:inputText style="width:163px"
+										value="#{plateForm.sessionModel.model.run.id}">
+									</p:inputText>
+								</p:outputPanel>
 
-							<p:dataTable var="rowName"
-								value="#{plateForm.rows.entrySet().toArray()}" tableStyle="table-layout:auto;width:40%;">
-								<p:column headerText="" styleClass="ui-widget-header">
-									<h:outputText value="#{rowName.value}" />
-								</p:column>
+								<!-- <p:outputLabel   value="Plate Type: *" />
+					<p:outputPanel>
+						<p:selectOneMenu id="plateType"  value="#{plateForm.sessionModel.model.plateType}" converter="omnifaces.SelectItemsIndexConverter" valueChangeListener="#{plateForm.valueChangeMethod}" style="width:125px" required="true" >
+							<f:selectItem itemLabel="Select One" itemValue="#{null}"  />
+							<f:selectItems value="#{plateForm.platetypes}" var="plateType" itemLabel="#{plateType.name}"  itemValue="#{plateType}"  />
+							 <p:ajax event="change" update="form" />
+						</p:selectOneMenu>
+				</p:outputPanel> -->
 
-								<p:columns var="columnName"
-									value="#{plateForm.cols.entrySet().toArray()}"
-									headerText="#{columnName.value}">
-										<p:inputSwitch value="#{plateForm.vals[columnName.key][rowName.key]}" />
-								</p:columns>
-							</p:dataTable>
-						</h:panelGrid>
-					</p:tab>
+								<p:outputLabel value="Plate Name: " />
+								<p:outputPanel>
+									<p:inputText style="width:163px"
+										value="#{plateForm.sessionModel.model.name}">
+									</p:inputText>
+								</p:outputPanel>
+							</h:panelGrid>
 
-					<p:tab title="History">
-						<p:dataScroller value="#{plateForm.valLst}" var="map" chunkSize="2" >
-							<p:dataTable value="#{plateForm.rows.entrySet().toArray()}" var="rowName" rowIndexVar="rowIdx" tableStyle="table-layout:auto;width:30%;" emptyMessage="No records found." >
-									<p:column>
-										<h:outputText value="#{rowName.value}"/>
-									</p:column>
-									
-									<p:columns var="columnName" value="#{plateForm.cols.entrySet().toArray()}" headerText="#{columnName.value}" columnIndexVar="colIdx" style="width:5px;height:5px">
-									<ui:repeat value="#{map}" var="entry">
-										<p:inputSwitch value="#{entry[columnName.key][rowName.key]}" disabled="true" />
-									</ui:repeat>
-								</p:columns>
-								</p:dataTable>
-						</p:dataScroller>
-					</p:tab>
-				</p:tabView>
+							<div class="EmptyBox10"></div>
+							<p:tabView>
+								<p:tab title="Menu">
+									<h:panelGrid columns="2" cellpadding="10">
 
-			<div class="EmptyBox5"></div>
-			<div class="Container50">
-				<p:outputPanel styleClass="savebutton">
-					<p:commandButton value="Save" action="#{plateForm.save()}" ajax="true" update="form, growl"/>
-					
-				</p:outputPanel>
-			</div>
+										<p:dataTable var="rowName"
+											value="#{plateForm.sessionModel.model.rows.entrySet().toArray()}"
+											tableStyle="table-layout:auto;width:40%;">
+											<p:column headerText="" styleClass="ui-widget-header">
+												<h:outputText value="#{rowName.value}" />
+											</p:column>
+
+											<p:columns var="columnName"
+												value="#{plateForm.sessionModel.model.cols.entrySet().toArray()}"
+												headerText="#{columnName.value}">
+												<!-- 										<p:inputSwitch value="#{plateForm.vals[columnName.key][rowName.key]}"  valueChangeListener="#{plateForm.changeListener}" style="#{plateForm.vals[columnName.key][rowName.key] eq true ? 'color:White;background:Green;' : 'color:White;background:Red;'}"  > -->
+												<!-- 										 <p:ajax listener="#{plateForm.changeListener}" update="form, growl" /> -->
+												<!-- 										 </p:inputSwitch> -->
+												<div class="plate">
+													<p:selectBooleanButton converter="javax.faces.Boolean"
+														value="#{plateForm.sessionModel.model.vals[columnName.key][rowName.key]}"
+														onLabel="ON" offLabel="OFF" style="width:60px" />
+												</div>
+											</p:columns>
+										</p:dataTable>
+									</h:panelGrid>
+								</p:tab>
+
+								<p:tab title="History">
+									<p:dataScroller value="#{plateForm.sessionModel.model.valLst}"
+										var="map" rowIndexVar="rIn"
+										rendered="#{studyForm.sessionModel.editMode}">
+										<div class="platetable">
+											<p:dataTable
+												value="#{plateForm.sessionModel.model.rows.entrySet().toArray()}"
+												var="rowName" rowIndexVar="rowIdx"
+												tableStyle="table-layout:auto;width:30%;"
+												emptyMessage="No records found.">
+												<f:facet name="header">
+													<h:outputText value="version #{rIn}" class="Fs18" />
+												</f:facet>
+												<p:column>
+													<h:outputText value="#{rowName.value}" />
+												</p:column>
+
+												<p:columns colspan="3" var="columnName"
+													value="#{plateForm.sessionModel.model.cols.entrySet().toArray()}"
+													headerText="#{columnName.value}" columnIndexVar="colIdx"
+													style="padding: 0px !important;text-align: center;">
+													<ui:repeat value="#{map}" var="entry">
+														<p:outputPanel style="background: Green; padding:10px;"
+															rendered="#{entry[columnName.key][rowName.key]}">
+															<!-- <p:inputSwitch value="#{entry[columnName.key][rowName.key]}" disabled="true"  style="#{entry[columnName.key][rowName.key] eq true ? 'color:White;background:Green;' : 'color:White;background:Red;'}" /> -->
+															<!-- 										<p:selectBooleanButton id="value1" value="#{entry[columnName.key][rowName.key]}" disabled="true" onLabel="On" offLabel="Off"  style="#{entry[columnName.key][rowName.key] eq true ? 'color:White;background:Green;' : 'color:White;background:Red;'};width:20px" /> -->
+															<p:outputLabel value="ON" />
+														</p:outputPanel>
+														<p:outputPanel style=" padding:10px;"
+															rendered="#{! entry[columnName.key][rowName.key]}">
+															<p:outputLabel value="Off" style="color:Orange;" />
+														</p:outputPanel>
+
+													</ui:repeat>
+												</p:columns>
+											</p:dataTable>
+										</div>
+									</p:dataScroller>
+								</p:tab>
+							</p:tabView>
+
+							<div class="EmptyBox5"></div>
+							<div class="Container50">
+								<p:outputPanel styleClass="savebutton">
+									<p:commandButton value="Save" action="#{plateForm.save()}"
+										ajax="true" update="form, growl" />
+
+								</p:outputPanel>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</h:form>

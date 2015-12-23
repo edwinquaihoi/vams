@@ -3,10 +3,10 @@ package au.com.csl.vams.web.forms.ui;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import au.com.csl.vams.model.relational.Plate;
 import au.com.csl.vams.model.relational.Run;
 import au.com.csl.vams.model.relational.Study;
 import au.com.csl.vams.scaffold.AbstractMaintenanceForm;
@@ -35,8 +35,7 @@ public class RunForm extends AbstractMaintenanceForm<String, Run> {
 	@EJB 
 	private IPlateSvc plateSvc;
 		
-	@ManagedProperty("#{plateModel}")
-	PlateModel plateModel;
+	
 	
 	private boolean disable;
 	
@@ -57,15 +56,6 @@ public class RunForm extends AbstractMaintenanceForm<String, Run> {
 	public void setPlateSvc(IPlateSvc plateSvc) {
 		this.plateSvc = plateSvc;
 	}
-
-	public PlateModel getPlateModel() {
-		return plateModel;
-	}
-
-	public void setPlateModel(PlateModel plateModel) {
-		this.plateModel = plateModel;
-	}
-
 	public IStudySvc getStudySvc() {
 		return studySvc;
 	}
@@ -135,6 +125,9 @@ public class RunForm extends AbstractMaintenanceForm<String, Run> {
 	public void viewOne(Run run)
 	{
 		super.viewOne(run);
+		List<Plate> plates= plateSvc.getPlates(run);
+		run.setPlates(plates);
+		System.out.println("runs in runform"+run.getPlatesCount());
 		setDisable(true);
 	}
 	

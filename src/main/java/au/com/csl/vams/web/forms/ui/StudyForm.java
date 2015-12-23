@@ -5,10 +5,15 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.event.NodeSelectEvent;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import au.com.csl.vams.config.ConfigUtil;
 import au.com.csl.vams.model.relational.Plate;
 import au.com.csl.vams.model.relational.Run;
 import au.com.csl.vams.model.relational.Study;
@@ -19,6 +24,10 @@ import au.com.csl.vams.service.IPlateSvc;
 import au.com.csl.vams.service.IRunSvc;
 import au.com.csl.vams.service.IStudySvc;
 import au.com.csl.vams.service.IStudyTypeSvc;
+
+
+
+
 
 
 @ManagedBean(name = "studyForm")
@@ -35,6 +44,9 @@ public class StudyForm  extends AbstractMaintenanceForm<String, Study>{
 	 */
 
 	private static Logger logger = LoggerFactory.getLogger(StudyForm.class); 
+	
+	private TreeNode root;
+	private TreeNode selectedNode;
 	
 	private List<StudyType> studytypes;
 		
@@ -61,8 +73,35 @@ public class StudyForm  extends AbstractMaintenanceForm<String, Study>{
 	private List<Study> filteredStudies;
 	
 	private boolean disable;
-			
 	
+	@ManagedProperty(value = "#{runForm}")
+	RunForm runForm;
+				
+	public RunForm getRunForm() {
+		return runForm;
+	}
+
+	public void setRunForm(RunForm runForm) {
+		this.runForm = runForm;
+	}
+
+	public TreeNode getSelectedNode() {
+		return selectedNode;
+	}
+
+	public void setSelectedNode(TreeNode selectedNode) {
+		this.selectedNode = selectedNode;
+	}
+
+	public void setRoot(TreeNode root)
+	{
+		this.root=root;
+	}
+	
+	public TreeNode getRoot() {
+		return root;
+	}
+
 	public boolean isDisable() {
 		return disable;
 	}
@@ -155,7 +194,9 @@ public class StudyForm  extends AbstractMaintenanceForm<String, Study>{
 	public Study getNewOne() {
 		Study study = new Study();
 		study.setStudyType(new StudyType());
+		studytypes=studyTypeSvc.getAll();
 		return study;
+		
 	}
 
 	@Override
@@ -171,34 +212,36 @@ public class StudyForm  extends AbstractMaintenanceForm<String, Study>{
 
 	@Override
 	public List<Study> getDefaultSearchResults() {
+		name = "";
+		id = "";
+		type = "";
 		return studySvc.getAll();
 	}
 	
 	@PostConstruct
 	public void init() {
-		setStudytypes(studyTypeSvc.getAll());
-	}
+		studytypes=studyTypeSvc.getAll();
+		//createNodes(new Study());
 	
+	
+	}
+			
 	public void searchByIDOrName() {
-		List<Study> studies = studySvc.findByNameLikeOrIdContainingOrStudyTypeNameContaining((getName().isEmpty() ? "null" : getName()+"%"),(getId().isEmpty() ? "null" : getId()), (getType().isEmpty() ? "null" : getType()));
+		List<Study> studies;
+		if (getName().isEmpty() && getId().isEmpty() && getType().isEmpty()) {
+			studies = studySvc.getAll();
+		} else {
+			studies = studySvc.findByNameLikeOrIdContainingOrStudyTypeNameContaining(
+					(getName().isEmpty() ? "null" : getName() + "%"), (getId().isEmpty() ? "null" : getId()),
+					(getType().isEmpty() ? "null" : getType()));
+		}
 		getSessionModel().setResults(studies);
 	}
-	
+
 	public void getRuns(Study study) {
-		
-		List<Run> runs=runSvc.findByStudyId(study.getId());
-		for(Run run :runs)
-		{
-			//List<Plate> plates= plateSvc.getPlates(run);
-			//for(Plate plate:plates)
-			//{
-				//Plate p=plateSvc.getById(plate.getId());
-				//System.out.println("plates***"+run+"*****"+p.toString());
-			List<Plate> plates= plateSvc.getPlates(run);
-				//System.out.println("plates***"+run+"*****"+plates.get(0).getPlateElmns().toString());
-			//}
-			
-			
+	List<Run> runs = runSvc.findByStudyId(study.getId());
+		for (Run run : runs) {
+			List<Plate> plates = plateSvc.getPlates(run);
 			run.setPlates(plates);
 		}
 		getSessionModel().getModel().setRuns(runs);
@@ -211,6 +254,7 @@ public class StudyForm  extends AbstractMaintenanceForm<String, Study>{
 		viewOne(study);
 		studytypes.clear();
 		studytypes.add(study.getStudyType());
+		createNodes(study);
 		setDisable(true);
 
 	}
@@ -224,5 +268,87 @@ public class StudyForm  extends AbstractMaintenanceForm<String, Study>{
 	}
 	
 	
+	public String saveRun() {
+		try {
+			String sName = getSessionModel().getModel().getName();
+			List<Study> studyLst = studySvc.findByNameLikeOrIdContainingOrStudyTypeNameContaining(
+					sName.isEmpty() ? "null" : "%" + sName + "%", "null", "null");
+			List<Run> runLst = runSvc.findByStudyId(getSessionModel().getModel().getId());
+			if (!studyLst.isEmpty() || !runLst.isEmpty()) {
+				for (Study study : studyLst) {
+					Run run = new Run();
+					run.setStudy(study);
+					runSvc.create(run);
+				}
+
+			}
+			ConfigUtil.growl("Info", "Changes saved");
+			setDisable(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ConfigUtil.growl("Error", "Could not save the changes");
+		}
+		
+		getRuns(getSessionModel().getModel());
+		return null;
+	}
+	
+	public void createNodes(Study study) {
+		
+
+		root = new DefaultTreeNode("Root", null);
+		TreeNode studyNode0 = new DefaultTreeNode("Runs", root);
+		//TreeNode studyNode1 = new DefaultTreeNode("Study Name: " + study.getName(), studyNode0);
+		//TreeNode studyNode2 = new DefaultTreeNode("Run", studyNode0);
+
+		if (study.getRuns() != null) {
+			for (Run run : study.getRuns()) {
+				studyNode0.getChildren().add(new DefaultTreeNode("Run Id: " + run.getId() + ", " + "Create Date: " + run.getFormattedCreateDate() + ", " + "Plates: " + run.getPlates().size()));
+				//studyNode0.getChildren().add(new DefaultTreeNode("Create Date: " + run.getFormattedCreateDate()));
+				//studyNode0.getChildren().add(new DefaultTreeNode("Plates : " + run.getPlates().size()));
+
+			}
+		}
+		
+		
+		   /* root = new DefaultTreeNode("Root", null);
+	        
+		    if (study.getRuns() != null) {
+				for (Run run : study.getRuns()) {
+					TreeNode treeRun = new DefaultTreeNode(new Document("Runs",run), root);
+					
+				}
+		    }*/
+		    
+	        
+	        
+	}
+	
+	public void displaySelectedSingle() {
+		if (selectedNode != null) {
+		    Run run = runSvc.getById(selectedNode.getData().toString().substring(8,11));
+			runForm.viewOne(run);
+		}
+	}
+	
+	public void onNodeSelect(NodeSelectEvent event) {
+		TreeNode node = event.getTreeNode();
+		if (node.isLeaf()) {
+			Run run = runSvc.getById(node.getData().toString().substring(8, 11));
+			runForm.viewOne(run);
+		}
+
+	}
+	
+	
+	@Override
+	public void viewOne(Study study)
+	{
+		super.viewOne(study);
+		getRuns(study);
+		studytypes.clear();
+		studytypes.add(study.getStudyType());
+		
+	}
 	
 }

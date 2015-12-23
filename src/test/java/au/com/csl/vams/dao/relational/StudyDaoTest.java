@@ -14,6 +14,8 @@ import au.com.csl.vams.dao.IStudyTypeDao;
 import au.com.csl.vams.dao.RelationalTests;
 import au.com.csl.vams.model.relational.Study;
 import au.com.csl.vams.model.relational.StudyType;
+import au.com.csl.vams.scaffold.ICalculatePlugin;
+import au.com.csl.vams.scaffold.PluginFactory;
 
 
 public class StudyDaoTest extends RelationalTests {
@@ -40,21 +42,21 @@ public class StudyDaoTest extends RelationalTests {
 			//study.setCreateDate(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
 			dao.saveAndFlush(study);
 			
-			Study study2 = new Study();
+			/*Study study2 = new Study();
 			study2.setName("study2");
 			//study2.setCreateDate(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
 			StudyType st2 = new StudyType();
 			st2.setName("st2");
 			studyTypeDao.saveAndFlush(st2);
 			study2.setStudyType(st2);
-			dao.saveAndFlush(study2);
+			dao.saveAndFlush(study2);*/
 			
 			//assertEquals(1, dao.count());
-			System.out.println(dao.findAll());
-			StudyType stt= new StudyType();
+			System.out.println(dao.findAll().get(0).toString());
+			/*StudyType stt= new StudyType();
 			stt.setName("st1");
 			List<Study> studyLst=dao.findByNameLikeOrIdContainingOrStudyTypeNameContaining("%study1%", "null","st1");
-			System.out.println("studyLst***"+studyLst);
+			System.out.println("studyLst***"+studyLst);*/
 			//assertEquals(1, studyLst.size());
 			
 		} catch (Exception ex) {
@@ -62,6 +64,10 @@ public class StudyDaoTest extends RelationalTests {
 		}
 	}
 	
-	
+	@Test
+	public void testCalculate()
+	{
+		
+	}
 
 }

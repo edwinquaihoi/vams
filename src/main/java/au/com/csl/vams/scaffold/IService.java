@@ -19,7 +19,7 @@ public interface IService<A extends IMasterPersistentEntity<B>,B extends Seriali
 	}
 	
 	default A update(A pEntity) {
-		return getDao().save(pEntity);
+		return getDao().saveAndFlush(pEntity);
 	}
 	
 	default void delete(A pEntity) {

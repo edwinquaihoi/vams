@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
@@ -38,8 +40,9 @@ public class Study extends AbstractMasterEntity<String> {
 	private String id;
 		
 	private String name;
-	
-	@OneToOne
+		
+	@JoinColumn(name = "STUDYTYPE")
+	@ManyToOne
 	private StudyType studyType;	
 
 	@Transient
@@ -49,7 +52,7 @@ public class Study extends AbstractMasterEntity<String> {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
-
+		
 	public String getId() {
 		return id;
 	}
@@ -97,7 +100,7 @@ public class Study extends AbstractMasterEntity<String> {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	
+		
 	@Override
 	public String getSearchResultInfo() {
 		// TODO Auto-generated method stub

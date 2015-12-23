@@ -1,6 +1,7 @@
 package au.com.csl.vams.model.relational;
 
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -91,5 +92,11 @@ public class Run extends AbstractMasterEntity<String>{
 			return 0;
 		}
 	}
-		
+	
+	// Return formatted create date
+	public String getFormattedCreateDate() {
+		String result = new SimpleDateFormat("dd-MMM-yy HH:mm").format(getCreateDate());
+		return result;
+	}
+
 }
