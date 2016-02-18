@@ -6,10 +6,12 @@ import java.util.List;
 import javax.inject.Inject;
 import org.junit.Test;
 import au.com.csl.vams.dao.IPlateDao;
+import au.com.csl.vams.dao.IPlateTypeDao;
 import au.com.csl.vams.dao.IRunDao;
 import au.com.csl.vams.dao.RelationalTests;
 import au.com.csl.vams.model.relational.Plate;
 import au.com.csl.vams.model.relational.PlateElement;
+import au.com.csl.vams.model.relational.PlateType;
 import au.com.csl.vams.model.relational.Run;
 import au.com.csl.vams.dao.Dao;
 
@@ -23,6 +25,10 @@ public class PlateDaoTest extends RelationalTests {
 	@Dao
 	IRunDao runDao;
 	
+	@Inject
+	@Dao
+	IPlateTypeDao ptDao;
+	
 	
 	
 	
@@ -32,24 +38,30 @@ public class PlateDaoTest extends RelationalTests {
 		Run run = new Run();
 		runDao.saveAndFlush(run);
 		
+		PlateType pt = new PlateType();
+		pt.setName("5*5");
+		ptDao.saveAndFlush(pt);
+		
 		Plate plate = new Plate();
 		plate.setName("plateOne");
+		plate.setPlateType(pt);
 		plate.setRun(run);
 		
 		PlateElement plateElm = new PlateElement();
 		plateElm.setRow("1");
 		plateElm.setColumn("1");
 		plateElm.setValue("0");
+		plateElm.setPlateId(plate.getId());
 		
 		List<PlateElement> plateElmLst = new ArrayList<PlateElement>();
 		plateElmLst.add(plateElm);
 		plate.setPlateElmns(plateElmLst);
 		
 		
-		plateElm.setPlateId(plate.getId());
+		
 		
 				
-		Plate plateNew=dao.saveAndFlush(plate);
+		dao.saveAndFlush(plate);
 		List<Plate> pLst=dao.findAll();
 		List<Plate>p=dao.findByRunId("1");
 		

@@ -19,7 +19,9 @@
 		<class>au.com.csl.vams.model.relational.Sample</class>
 		<class>au.com.csl.vams.model.relational.StudyType</class>
 		<class>au.com.csl.vams.model.relational.Algorithm</class>
+		<class>au.com.csl.vams.model.relational.AlgorithmParameter</class>
 		<class>au.com.csl.vams.model.relational.AlgorithmType</class>
+		<class>au.com.csl.vams.model.relational.AlgorithmTypeParameter</class>
 		<class>au.com.csl.vams.model.relational.PlateType</class>
 		<class>au.com.csl.vams.model.relational.Plate</class>
 		<class>au.com.csl.vams.model.relational.PlateElement</class>

@@ -32,13 +32,8 @@ public class RunDaoTest extends RelationalTests{
 	public void saveTest()
 	{
 		Run run = new Run();
-		Plate plate = new Plate();
-		plate.setName("PlateName1");
-
-		plate.setRun(run);
-		List<Plate> plateLst = new ArrayList<Plate>();
-		plateLst.add(plate);
-		run.setPlates(plateLst);
+		
+		
 		
 		Study study = new Study();
 		study.setName("study5");
